@@ -1,0 +1,31 @@
+.body {
+  @apply 
+  bg-white 
+  drop-shadow-lg
+  flex
+  justify-between
+  p-3
+  rounded-xl
+  min-h-[70px]
+  items-center;
+}
+
+.score {
+  @apply
+  flex-1 
+  flex
+  gap-3
+  justify-center
+  items-center;
+}
+
+.team {
+  @apply
+  flex-[2]
+  text-center;
+}
+
+.team > h3 {
+  @apply 
+  font-normal;
+}

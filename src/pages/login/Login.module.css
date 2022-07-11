@@ -1,0 +1,66 @@
+.body {
+  @apply
+  w-screen
+  h-screen
+  bg-cover
+  grid
+  place-items-center;
+}
+
+.colorOverlay {
+  @apply 
+  absolute
+  m-0 
+  w-full 
+  h-full
+  bg-black
+  opacity-40;
+}
+
+.card {
+  @apply
+  bottom-0
+  top-0
+  left-0
+  right-0
+  m-auto;
+}
+
+.googleBtn {
+  @apply
+  bg-primary
+  p-2
+  flex
+  gap-3
+  items-center
+  rounded-md;
+}
+
+.icon {
+  @apply
+  bg-white
+  rounded-md
+  p-2
+  grid
+  place-items-center;
+}
+
+.logoWrapper {
+  @apply
+  text-center;
+}
+
+.login {
+  @apply
+  flex
+  gap-2
+  items-center
+  my-5;
+}
+
+.line {
+  @apply
+  w-full
+  border-[1px]
+  border-grey
+}

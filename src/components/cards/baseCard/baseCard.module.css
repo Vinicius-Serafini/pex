@@ -1,0 +1,8 @@
+.card {
+  @apply 
+  p-3
+  bg-white
+  drop-shadow-md
+  rounded-md
+  w-fit;
+}

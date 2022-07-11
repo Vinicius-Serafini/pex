@@ -1,0 +1,14 @@
+.body {
+  @apply
+  py-1
+  px-2
+  bg-white
+  rounded-lg
+  drop-shadow-md;
+}
+
+.filled {
+  @apply 
+  bg-primary
+  hover:bg-primary-light;
+}

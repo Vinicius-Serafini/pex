@@ -1,0 +1,247 @@
+.header {
+  @apply
+  relative
+  rounded-md
+  overflow-hidden
+  w-full
+  h-[215px];
+}
+
+.colorOverlay {
+  @apply 
+  absolute
+  w-full 
+  h-full
+  bg-black
+  opacity-40;
+}
+
+.headerBody {
+  @apply
+  p-4
+  absolute
+  z-10
+  text-white;
+}
+
+.tabs {
+  @apply
+  my-10
+}
+
+.dateTimeCard {
+  @apply
+  w-full
+  mb-5;
+}
+
+.dateTimeCardBody {
+  @apply
+  flex;
+}
+
+.icon {
+  @apply
+  text-xl
+  text-primary-dark;
+}
+
+
+.dateTimeCardBody > .dateTime {
+  @apply
+  pl-2;
+}
+
+.dateTime > .date {
+  @apply
+  pb-2;
+}
+
+.locationCard {
+  @apply
+  w-full;
+}
+
+.locationCardBody {
+  @apply
+  text-left
+  flex
+  justify-between
+  w-full;
+}
+
+.location {
+  @apply
+  pl-2
+}
+
+.street {
+  @apply
+  mt-2
+}
+
+.locationWrapper {
+  @apply
+  flex;
+}
+
+.locationIconWrapper {
+  @apply
+  flex
+  items-center
+  px-3
+  text-xl;
+}
+
+.players {
+  @apply
+  mt-10
+}
+
+.players > * {
+  @apply
+  my-3
+}
+
+.playersTitle > span {
+  @apply
+  text-base
+  font-semibold
+  text-primary-dark;
+}
+
+.playersFilter {
+  @apply
+  flex
+  gap-3;
+}
+
+.playersList {
+  @apply
+  flex
+  flex-col
+  gap-3;
+}
+
+
+.lineupTab > * {
+  @apply
+  mb-5
+  mx-auto;
+}
+
+.lineupTeamBtn {
+  @apply
+  w-fit
+  bg-white
+  rounded-md
+  drop-shadow-md
+  mx-auto
+  overflow-hidden;
+}
+
+.lineupTeamBtn > button {
+  @apply
+  px-7
+  py-2
+}
+
+.lineupTeamBtn > .active{
+  @apply
+  bg-primary
+  font-semibold;
+}
+
+.resultTab > *:not(:first-child) {
+  @apply
+  mt-10
+}
+
+.winnerCard {
+  @apply
+  w-full
+}
+
+.team {
+  @apply
+  flex
+  items-baseline
+  w-full
+  justify-between
+  gap-5
+  p-3
+  text-grey;
+}
+
+.teamName {
+  @apply
+  w-full;
+}
+
+.team:not(:last-of-type) {
+  @apply
+  border-b-[1px]
+  border-black-light
+}
+
+.winnerIcon {
+  @apply
+  text-[#FFD700]
+}
+
+.winner {
+  @apply
+  text-black;
+}
+
+.statsBtn {
+  @apply
+  w-full
+  py-4
+  rounded-md
+  bg-primary;
+}
+
+.goals > * {
+  @apply
+  mb-5
+}
+
+.goalsList {
+  @apply
+  flex
+  flex-col
+  gap-5;
+}
+
+.fabAcceptMatch {
+  @apply
+  fixed
+  bottom-10
+  left-0
+  right-0
+  mx-auto
+  bg-white
+  w-fit
+  rounded-xl
+  border-2
+  border-primary
+  drop-shadow-md;
+}
+
+.fabAcceptMatch > button {
+  @apply
+  py-3
+  px-8
+  font-semibold;
+}
+
+.fabAcceptMatch > .accept {
+  @apply
+  bg-primary
+}
+
+.fabAcceptMatch > .reject {
+  @apply
+  text-red-600
+}

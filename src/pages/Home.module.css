@@ -1,0 +1,69 @@
+.main {
+  @apply p-3 mt-10;
+}
+
+.hero {
+  @apply flex gap-5;
+}
+
+.statsContainer {
+  @apply flex-1 flex flex-col mt-5
+}
+
+.statsWrapper {
+  @apply 
+  grid 
+  grid-cols-2 
+  gap-5
+}
+
+.stats {
+  @apply text-center;
+}
+
+.stats h3 {
+  @apply font-bold;
+
+}
+
+.btnStatsContainer {
+  @apply 
+  flex-1 
+  flex 
+  flex-col 
+  justify-end;
+}
+
+.btnStats {
+  @apply 
+  bg-primary 
+  py-2 
+  px-5 
+  rounded-md 
+  font-semibold
+}
+
+
+.matchesList {
+  @apply mt-14
+}
+
+.matchesList .tabs {
+  @apply flex gap-10 font-semibold
+}
+
+.matchesList .tabs > p {
+  @apply 
+  px-3
+  border-b-2
+  border-primary
+}
+
+.matchesListBody {
+  @apply
+  flex 
+  flex-col
+  gap-5
+  md:grid
+  md:grid-cols-2;
+}

@@ -1,0 +1,51 @@
+.container {
+  @apply
+  px-4;
+}
+
+.search {
+  @apply
+  relative
+  my-2
+  w-full
+  flex
+  justify-end
+  items-center;
+}
+
+.search > input {
+  @apply
+  rounded-md
+  p-2 
+  w-full
+  drop-shadow-md;
+}
+
+.search > .icon {
+  @apply 
+  z-10
+  text-left
+  absolute
+  my-2
+  mx-3
+  text-grey;
+}
+
+.body {
+  @apply
+  my-10
+}
+
+.filter {
+  @apply
+  flex 
+  gap-5
+  my-5
+}
+
+.teams {
+  @apply 
+  flex
+  flex-col
+  gap-5;
+}

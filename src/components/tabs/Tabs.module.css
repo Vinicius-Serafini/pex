@@ -1,0 +1,18 @@
+.header {
+  @apply
+  flex
+  gap-5 
+  px-2
+  pb-5
+}
+
+.header > button {
+  @apply px-3
+}
+
+.active {
+  @apply
+  font-semibold
+  border-b-2
+  border-primary;
+}

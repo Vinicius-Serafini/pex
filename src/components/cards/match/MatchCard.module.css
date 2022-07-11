@@ -1,0 +1,73 @@
+.matchCardContainer {
+  @apply 
+  relative
+  bg-cover
+  bg-center
+  text-white
+  rounded-xl
+  overflow-hidden
+  min-h-fit;
+}
+
+.colorOverlay {
+  @apply 
+  absolute
+  m-0 
+  w-full 
+  h-full
+  bg-black
+  opacity-40;
+}
+
+.body {
+  @apply
+  relative
+  p-3
+  flex
+  flex-col
+  gap-7
+  z-10;
+}
+
+.header > .title {
+  @apply
+  font-bold
+  text-xl;
+}
+
+.teams {
+  @apply
+  text-center;
+}
+
+.teams > h2 {
+  @apply
+  font-bold
+  text-lg;
+}
+
+.actions {
+  @apply
+  flex
+  justify-around
+}
+
+.btn {
+  @apply
+  px-5
+  py-2
+  rounded-md
+  font-bold;
+}
+
+.acceptBtn {
+  @apply
+  btn
+  bg-green-500
+}
+
+.rejectBtn {
+  @apply 
+  btn 
+  bg-red-500
+}

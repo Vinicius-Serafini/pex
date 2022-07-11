@@ -1,0 +1,21 @@
+.goalsCard {
+  @apply
+  w-full
+  flex
+  justify-between;
+}
+
+.user {
+  @apply
+  flex
+  gap-5;
+}
+
+.goals {
+  @apply
+  grid
+  place-items-center
+  px-10
+  border-l-grey-dark
+  border-l-2;
+}

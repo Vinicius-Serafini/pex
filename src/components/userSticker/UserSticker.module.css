@@ -1,0 +1,84 @@
+.stickerContainer {
+  @apply
+  h-[165px]
+  w-[115px]
+  md:h-[255px]
+  md:w-[170px]
+}
+
+.userImage {
+  /* @apply absolute */
+  @apply 
+  bg-cover;
+}
+
+.stickerBody {
+  @apply 
+  h-full 
+  bg-cover 
+  bg-center
+  rounded-bl-[25px]
+  border-2
+  border-primary
+  flex
+  flex-col
+  overflow-hidden
+  relative;
+}
+
+.userAvatar {
+  @apply
+  h-full
+  object-cover;
+}
+
+.stickerContainer {
+  @apply 
+  p-2 
+  drop-shadow-lg
+  bg-white;
+
+  /* height: 235px;
+  width: calc(235px * 0.7); */
+}
+
+.icon {
+  @apply
+  grid
+  items-center
+  border-2
+  border-white
+  m-2
+  bg-white
+  place-self-start
+  absolute
+  text-sm
+  rounded-full;
+}
+
+.userNameContainer {
+  @apply 
+  h-full
+  w-full
+  grid
+  items-end
+  z-10;
+}
+
+.userNameWrapper {
+  @apply
+  h-1/2
+  grid
+  p-3
+  items-center
+  text-center
+  text-white
+  bg-gradient-to-t from-black-pure to-transparent
+  absolute
+  w-full;
+}
+
+.userName {
+  @apply 
+  font-semibold;
+}

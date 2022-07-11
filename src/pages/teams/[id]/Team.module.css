@@ -1,0 +1,44 @@
+.stats {
+  @apply
+  pt-2
+  flex
+  justify-around;
+}
+
+.stat {
+  @apply
+  text-center;
+}
+
+.stat p {
+  @apply 
+  font-semibold
+}
+
+.quickAccesses {
+  @apply
+  py-10
+  flex
+  justify-around;
+}
+
+.list {
+  @apply
+  flex
+  flex-col
+  gap-5;
+}
+
+.matchesList {
+  @apply
+  flex
+  flex-col
+  gap-5
+  md:grid
+  md:grid-cols-2;
+}
+
+.card {
+  @apply
+  w-full
+}

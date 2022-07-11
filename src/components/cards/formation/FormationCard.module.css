@@ -1,0 +1,22 @@
+.lineupWrapper{
+  @apply
+  relative;
+}
+
+.lineup {
+  @apply
+  absolute
+  flex
+  flex-col
+  w-full
+  h-full;
+}
+
+.lineupRow {
+  @apply
+  flex
+  flex-1
+  w-full
+  justify-between
+  items-center
+}

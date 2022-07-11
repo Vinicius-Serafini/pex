@@ -1,0 +1,47 @@
+.header {
+  @apply
+  flex
+  justify-between
+  items-center
+  w-full
+  bg-primary
+  drop-shadow-md;
+}
+
+.links {
+  @apply
+  flex-1
+  flex
+  justify-center
+  gap-20;
+}
+
+.logo {
+  @apply
+  flex-1;
+}
+
+.logo > * {
+  @apply
+  ml-10;
+}
+
+.logoutBtn {
+  @apply
+  flex
+  items-center
+  gap-2
+  py-2
+  px-3
+  mr-10
+  bg-white-dark
+  rounded-full;
+}
+
+.logout{
+  @apply
+  flex-1
+  flex
+  justify-end
+  h-full;
+}

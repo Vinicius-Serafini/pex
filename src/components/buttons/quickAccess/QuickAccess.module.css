@@ -1,0 +1,19 @@
+.quickAccess {
+  @apply 
+  flex 
+  flex-col
+  items-center;
+}
+
+.quickAccess > button {
+  @apply
+  w-[4rem]
+  h-[4rem]
+  bg-gradient-to-b from-primary to-secondary-dark
+  rounded-full
+  text-white
+  text-3xl
+  drop-shadow-md
+  border-secondary-dark
+  border-[1px];
+}

@@ -1,0 +1,25 @@
+.userCard {
+  @apply
+  w-full;
+}
+
+.body {
+  @apply
+  flex
+}
+
+.userAvatarContainer {
+  @apply
+  h-[4rem]
+  w-[4rem]
+  rounded-full
+  overflow-hidden
+  mr-3;
+}
+
+.userAvatar {
+  @apply
+  h-full
+  object-cover;
+}
+

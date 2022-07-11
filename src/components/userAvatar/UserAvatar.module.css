@@ -1,0 +1,11 @@
+.avatarContainer {
+  @apply
+  rounded-full
+  overflow-hidden;
+}
+
+.avatar {
+  @apply
+  object-fill
+}
+

@@ -1,0 +1,37 @@
+.card {
+  @apply 
+  p-3 
+  bg-white 
+  drop-shadow-md
+  rounded-md
+  overflow-hidden;
+}
+
+.title {
+  @apply 
+  flex 
+  gap-2
+  items-baseline;
+}
+
+.players {
+  @apply
+  mt-5
+  flex 
+  flex-row-reverse
+  justify-end;
+}
+
+.userAvatar {
+  @apply 
+  relative
+  h-12
+  w-12
+  rounded-full
+  border-2
+  border-white
+}
+
+.userAvatar:nth-child(n+2){
+  @apply mr-[-1rem]
+}

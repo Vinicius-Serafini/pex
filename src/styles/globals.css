@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    font-size: 14px;
+
+    --primary: #5DCD4A;
+    --primary-light: #7BEA5F;
+    --primary-dark: #3EA454;
+  
+    --secondary: #40CCC4;
+    --secondary-dark: #3F94A7;
+  
+    --white: #FAFAFA;
+    --white-dark: #F1F1F1;
+    --grey: #B6B6B6;
+    --grey-light: #D1D1D1;
+    --grey-dark: #8B8B8B;
+  
+    --black-light: #4A4A4A;
+    --black: #202020;
+    --black-pure: #000000;
+  }
+
+  @media (max-width: 700px) {
+    :root {
+      font-size: 12px;
+    }
+  }
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 2rem;
+}
+h2 {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-weight: bold;
+  font-size: 1.17rem;
+}
+
+h4 {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+h5 {
+  font-weight: bold;
+  font-size: .83rem;
+}
+
+h6 {
+  font-weight: bold;
+  font-size: .67rem;
+}
+
+a {
+  @apply
+  cursor-pointer
+}
+
+html,
+body {
+  @apply 
+  bg-white-dark;
+}
+
+main {
+  @apply
+  px-2
+  py-5
+  max-w-4xl
+  mx-auto;
+}

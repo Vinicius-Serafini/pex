@@ -1,0 +1,50 @@
+.body {
+  @apply
+  flex
+  flex-col
+  md:flex-row
+  md:gap-5;
+}
+
+.lineup {
+  @apply
+  flex
+  flex-col
+  items-center
+  md:flex-[5]
+}
+
+.formation {
+  @apply
+  p-2
+  m-2
+  self-start;
+}
+
+.formationSelect {
+  @apply
+  p-2
+  my-1
+  bg-white
+  rounded-md
+  drop-shadow-md
+}
+
+.substitutes {
+  @apply
+  mt-8
+  md:mt-0
+  md:flex-[4]
+}
+
+.title {
+  @apply
+  py-5
+}
+
+.substitutesList {
+  @apply
+  flex
+  flex-col
+  gap-4
+}

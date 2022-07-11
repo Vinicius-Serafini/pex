@@ -1,0 +1,20 @@
+.navbar {
+  @apply
+  bg-primary
+  w-full
+  flex
+  justify-around
+  py-2
+  fixed
+  bottom-0
+  z-[999];
+}
+
+.btn {
+  @apply
+  flex
+  flex-col
+  p-1
+  text-xl
+  cursor-pointer;
+}
