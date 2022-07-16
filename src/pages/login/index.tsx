@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Card from '../../components/cards/baseCard';
 import { useAuth } from '../../hooks/useAuth';
-import style from './Login.module.css';
+import style from './styles.module.css';
 import Image from 'next/image';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';

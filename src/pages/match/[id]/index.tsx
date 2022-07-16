@@ -5,7 +5,7 @@ import Card from "../../../components/cards/baseCard";
 import UserCard from "../../../components/cards/user";
 import Chip from "../../../components/chips";
 import Tabs from "../../../components/tabs";
-import style from './Match.module.css';
+import style from './styles.module.css';
 import { faClock, faMapMarkedAlt, faAngleRight, faTrophy } from '@fortawesome/free-solid-svg-icons';
 import BaseButton from "../../../components/buttons/baseButton";
 import FormationCard from "../../../components/cards/formation";

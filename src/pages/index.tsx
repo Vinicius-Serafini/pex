@@ -4,7 +4,7 @@ import BaseButton from '../components/buttons/baseButton';
 import HistoryCard from '../components/cards/history';
 import MatchCard from '../components/cards/match';
 import Tabs from '../components/tabs';
-import styles from './Home.module.css';
+import styles from './styles.module.css';
 import UserSticker from '../components/userSticker';
 import { useAuth } from 'src/hooks/useAuth';
 import { User } from 'src/types';
