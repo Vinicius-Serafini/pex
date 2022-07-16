@@ -1,5 +1,5 @@
 import BaseButton from "../../buttons/baseButton";
-import style from './MatchCard.module.css';
+import style from './styles.module.css';
 
 const MatchCard = () => {
   return (

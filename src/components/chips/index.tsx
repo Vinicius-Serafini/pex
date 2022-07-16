@@ -1,5 +1,5 @@
 import { DetailedHTMLProps, HTMLAttributes, ReactNode } from "react";
-import style from './Chip.module.css';
+import style from './styles.module.css';
 
 type ChipType = DetailedHTMLProps<HTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
   filled?: boolean,

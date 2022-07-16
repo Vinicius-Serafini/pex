@@ -1,5 +1,5 @@
 import { DetailedHTMLProps, HTMLAttributes, ReactNode } from "react";
-import style from './baseCard.module.css';
+import style from './styles.module.css';
 
 type CardType = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
   children: ReactNode

@@ -1,4 +1,4 @@
-import style from './HistoryCard.module.css';
+import style from './styles.module.css';
 
 const HistoryCard = () => {
   return (

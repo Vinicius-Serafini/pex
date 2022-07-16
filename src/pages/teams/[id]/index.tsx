@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import QuickAccess from "../../../components/buttons/quickAccess";
 import Card from "../../../components/cards/baseCard";
-import style from './Team.module.css';
+import style from './styles.module.css';
 import { faChartColumn, faPeopleGroup, faUserGroup } from '@fortawesome/free-solid-svg-icons';
 import Tabs from "../../../components/tabs";
 import MatchCard from "../../../components/cards/match";

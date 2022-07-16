@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from "react"
-import style from "./Tabs.module.css";
+import style from "./styles.module.css";
 
 type TabsType = {
   tabs: Array<TabType>

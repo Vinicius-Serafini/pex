@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import Image from "next/image";
 import FormationCard from "../../../../components/cards/formation";
 import UserCard from "../../../../components/cards/user";
-import style from './TeamLineup.module.css';
+import style from './styles.module.css';
 
 const Lineup: NextPage = () => {
   return (

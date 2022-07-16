@@ -1,5 +1,5 @@
 import Card from "../baseCard";
-import style from './UserCard.module.css';
+import style from './styles.module.css';
 
 const UserCard = () => {
 

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import UserAvatar from "../../userAvatar";
 import Card from "../baseCard";
-import style from "./FormationCard.module.css";
+import style from "./styles.module.css";
 
 const FormationCard = () => {
 

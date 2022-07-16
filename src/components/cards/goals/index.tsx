@@ -1,6 +1,6 @@
 import UserAvatar from "../../userAvatar";
 import Card from "../baseCard";
-import style from "./GoalsCard.module.css";
+import style from "./styles.module.css";
 
 const GoalsCard = () => {
 

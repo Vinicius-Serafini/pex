@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import style from './Teams.module.css';
+import style from './styles.module.css';
 import Chip from '../../components/chips';
 import PlayerCard from '../../components/cards/player';
 

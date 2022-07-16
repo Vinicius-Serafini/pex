@@ -1,4 +1,4 @@
-import style from "./UserAvatar.module.css";
+import style from "./styles.module.css";
 
 type UserAvatarType = {
   src: string,

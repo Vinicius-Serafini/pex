@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styles from "./HeaderDesktop.module.css";
+import styles from "./styles.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import { faPowerOff } from "@fortawesome/free-solid-svg-icons";

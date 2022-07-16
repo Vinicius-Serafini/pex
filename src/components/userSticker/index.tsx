@@ -1,6 +1,6 @@
 import { changeGoogleAvatarSize } from 'src/helpers';
 import { User } from 'src/types';
-import styles from './UserSticker.module.css';
+import styles from './styles.module.css';
 
 type UserStickerType = {
   user: User

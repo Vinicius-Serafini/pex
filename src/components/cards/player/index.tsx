@@ -1,4 +1,4 @@
-import style from './PlayerCard.module.css';
+import style from './styles.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCrown } from '@fortawesome/free-solid-svg-icons';
 

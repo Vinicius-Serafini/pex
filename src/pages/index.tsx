@@ -9,7 +9,6 @@ import UserSticker from '../components/userSticker';
 import { useAuth } from 'src/hooks/useAuth';
 import { User } from 'src/types';
 import { withAuth } from 'src/lib/middleware/withAuth';
-import { Header } from 'src/components/header';
 
 export const getServerSideProps = withAuth();
 
@@ -80,7 +79,5 @@ const Home: NextPage = () => {
     </div >
   )
 }
-
 export default Home;
-
 

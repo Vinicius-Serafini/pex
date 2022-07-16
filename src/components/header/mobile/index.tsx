@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUser, faUserGroup, faTrophy, faPowerOff } from "@fortawesome/free-solid-svg-icons";
-import style from "./HeaderMobile.module.css";
+import style from "./styles.module.css";
 import Link from "next/link";
 
 type HeaderMobileType = {

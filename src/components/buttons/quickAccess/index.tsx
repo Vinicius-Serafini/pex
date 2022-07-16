@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import style from './QuickAccess.module.css';
+import style from './styles.module.css';
 
 type QuickAccess = {
   icon: IconDefinition,

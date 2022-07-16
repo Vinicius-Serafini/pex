@@ -3,8 +3,8 @@ import { useAuth } from "src/hooks/useAuth";
 import { useRouter } from "next/router";
 import nookies from "nookies";
 import useWindowDimensions from "src/hooks/useWindowDimensions";
-import { HeaderDesktop } from "./HeaderDesktop";
-import { HeaderMobile } from "./HeaderMobile";
+import { HeaderDesktop } from "./desktop";
+import { HeaderMobile } from "./mobile";
 import { useEffect, useState } from "react";
 
 export const Header = () => {
@@ -17,7 +17,7 @@ export const Header = () => {
 
   const handleLogOut = async () => {
     if (user) {
-      router.replace("/");
+      router.replace("/login");
       nookies.destroy(undefined, 'nextauth.token');
       logOut();
     }
