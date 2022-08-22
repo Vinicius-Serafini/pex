@@ -17,6 +17,32 @@
   flex
   flex-1
   w-full
-  justify-between
+  justify-around
   items-center
+}
+
+.btnContainer {
+  @apply
+  h-[4rem]
+  w-[4rem]
+  block
+  rounded-full;
+}
+
+.addPlayerBtn {
+  @apply
+  p-2
+  bg-gray-300
+  text-black-light;
+}
+
+.shadowBg {
+  @apply
+  shadow-[2px_4px_7px_rgba(0,0,0,0.5)]
+}
+
+.playerIcon {
+  @apply
+  rounded-full
+  p-0
 }

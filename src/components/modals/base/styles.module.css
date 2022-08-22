@@ -1,0 +1,28 @@
+.backdrop {
+  @apply
+  fixed
+  grid
+  place-items-center
+  top-0
+  left-0
+  z-50
+  h-screen
+  w-screen;
+}
+
+.backdrop-bg {
+  @apply
+  bg-gray-900/80;
+}
+
+.header {
+  @apply
+  flex
+  justify-between
+  gap-10;
+}
+
+.closeBtn {
+  @apply
+  p-2
+}

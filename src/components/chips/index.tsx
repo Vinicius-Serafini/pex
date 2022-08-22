@@ -6,10 +6,10 @@ type ChipType = DetailedHTMLProps<HTMLAttributes<HTMLButtonElement>, HTMLButtonE
   children: ReactNode
 }
 
-const Chip = ({ filled = false, children }: ChipType) => {
+const Chip = ({ filled = false, children, ...props }: ChipType) => {
 
   return (
-    <button className={[style.body, filled ? style.filled : ''].join(' ')}>
+    <button className={[style.body, filled ? style.filled : ''].join(' ')} {...props}>
       {children}
     </button>
   )

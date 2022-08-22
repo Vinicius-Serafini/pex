@@ -1,0 +1,9 @@
+.input {
+  @apply
+  inputGroup;
+}
+
+.error {
+  @apply
+  text-red-600
+}

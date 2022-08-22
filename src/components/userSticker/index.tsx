@@ -1,4 +1,4 @@
-import { changeGoogleAvatarSize } from 'src/helpers';
+import { changeGoogleAvatarSize } from 'src/utils';
 import { User } from 'src/types';
 import styles from './styles.module.css';
 

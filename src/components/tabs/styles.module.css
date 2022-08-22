@@ -14,5 +14,6 @@
   @apply
   font-semibold
   border-b-2
-  border-primary;
+  border-primary
+  rounded-none;
 }

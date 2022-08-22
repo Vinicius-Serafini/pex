@@ -12,10 +12,11 @@ import { clientAuth } from "../services/firebaseClient";
 import { User } from "../types";
 import nookies from "nookies";
 import { useRouter } from "next/router";
+import { convertFirebaseUserToUser, createUser, getUser } from "src/services/userService";
 
 
 export type AuthContextType = {
-  user: User | null | undefined;
+  user: User | null;
   signInWithGoogle: () => Promise<void>;
 }
 
@@ -26,24 +27,14 @@ type AuthContextProviderProps = {
 export const AuthContext = createContext({} as AuthContextType);
 
 export function AuthContextProvider(props: AuthContextProviderProps) {
-  const [user, setUser] = useState<User | null>();
+  const [user, setUser] = useState<User | null>(null);
   const [unsubiscribe, setUnsubiscribe] = useState<Array<Unsubscribe>>([]);
-  const router = useRouter();
 
-  const setFirebaseUser = (user: FirebaseUser) => {
+  const setFirebaseUser = (firebase_user: FirebaseUser) => {
 
-    const { displayName, photoURL, uid, email } = user as FirebaseUser;
+    const user = convertFirebaseUserToUser(firebase_user);
 
-    if (!displayName || !photoURL || !email) {
-      throw new Error('Missing information from Google Account.');
-    }
-
-    setUser({
-      id: uid,
-      name: displayName,
-      mail: email,
-      avatar: photoURL
-    });
+    setUser(user);
   }
 
   useEffect(() => {
@@ -72,12 +63,16 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
     }
   }, []);
 
-  async function signInWithGoogle() {
+  const signInWithGoogle = async () => {
     try {
       const provider = new GoogleAuthProvider();
       const { user } = await signInWithPopup(clientAuth, provider);
 
       if (user) {
+        if (!(await getUser(user.uid))) {
+          await createUser(convertFirebaseUserToUser(user));
+        }
+
         setFirebaseUser(user);
       }
     } catch (e) {

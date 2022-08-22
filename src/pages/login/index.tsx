@@ -1,10 +1,25 @@
-import type { NextPage } from 'next';
+import type { GetServerSidePropsContext, NextPage } from 'next';
 import Card from '../../components/cards/baseCard';
 import { useAuth } from '../../hooks/useAuth';
 import style from './styles.module.css';
 import Image from 'next/image';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import nookies from "nookies";
+import { adminAuth } from 'src/services/firebaseAdmin';
+
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  try {
+    const { ['nextauth.token']: token } = nookies.get(ctx);
+    const decodedIdToken = await adminAuth.verifyIdToken(token);
+
+    ctx.res.writeHead(302, { Location: '/' });
+    ctx.res.end();
+
+  } catch (err) {
+    return { props: {} } as never;
+  }
+}
 
 const Login: NextPage = () => {
   const { user, signInWithGoogle } = useAuth();

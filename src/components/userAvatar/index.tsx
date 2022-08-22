@@ -23,7 +23,8 @@ const UserAvatar = ({ src, alt, size }: UserAvatarType) => {
           }}
           className={style.avatar}
           src={src}
-          alt={alt} />
+          alt={alt}
+          referrerPolicy="no-referrer" />
       </div>
     </div>
   )

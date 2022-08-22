@@ -15,10 +15,12 @@
     "@fortawesome/react-fontawesome": "^0.1.18",
     "firebase": "^9.8.1",
     "firebase-admin": "^11.0.0",
-    "next": "12.1.6",
+    "formik": "^2.2.9",
+    "next": "^12.2.4",
     "nookies": "^2.5.2",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-dom": "18.1.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/node": "17.0.35",

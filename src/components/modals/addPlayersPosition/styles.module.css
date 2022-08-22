@@ -1,0 +1,23 @@
+.modalBody {
+  @apply
+  min-w-[30vw]
+}
+
+.playerItem {
+  @apply
+  relative
+  w-full
+  hover:brightness-95;
+}
+
+.icon {
+  @apply
+  absolute
+  my-auto
+  top-0
+  right-0
+  h-full
+  flex
+  items-center
+  p-5;
+}

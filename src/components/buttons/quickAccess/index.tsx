@@ -14,7 +14,7 @@ const QuickAccess = ({ icon, label, onClick }: QuickAccess) => {
     <div className={style.quickAccess}>
       <button
         id={label}
-        onClick={() => onClick}>
+        onClick={() => onClick()}>
         <FontAwesomeIcon icon={icon} />
       </button>
       <label htmlFor={label}>{label}</label>

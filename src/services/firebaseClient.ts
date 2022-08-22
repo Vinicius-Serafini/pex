@@ -1,5 +1,6 @@
 import { getApps, initializeApp } from 'firebase/app';
 import { getAuth, signOut } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -16,7 +17,8 @@ if (!getApps().length) {
 }
 
 const clientAuth = getAuth(clientFirebase);
+const clientFirestore = getFirestore(clientFirebase);
 
 const logOut = async () => await signOut(clientAuth);
 
-export { clientAuth, clientFirebase, logOut };
+export { clientAuth, clientFirebase, logOut, clientFirestore };

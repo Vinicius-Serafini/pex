@@ -1,0 +1,18 @@
+.modalBody {
+  @apply
+  min-w-[350px]
+  pt-5
+}
+
+.btn {
+  @apply
+  baseBtn
+  px-5;
+}
+
+.btnWrapper {
+  @apply
+  mt-10
+  flex
+  justify-end
+}

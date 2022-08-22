@@ -33,50 +33,109 @@
   }
 }
 
-h1 {
-  font-weight: bold;
-  font-size: 2rem;
-}
-h2 {
-  font-weight: bold;
-  font-size: 1.5rem;
+@layer components  {
+  .baseBtn {
+    @apply
+    bg-primary
+    hover:bg-primary-light;
+  }
+
+  .inputGroup { 
+    @apply
+    relative
+    m-2;
+  }
 }
 
-h3 {
-  font-weight: bold;
-  font-size: 1.17rem;
-}
+@layer base {
+  h1 {
+    font-weight: bold;
+    font-size: 2rem;
+  }
+  h2 {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  
+  h3 {
+    font-weight: bold;
+    font-size: 1.17rem;
+  }
+  
+  h4 {
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  
+  h5 {
+    font-weight: bold;
+    font-size: .83rem;
+  }
+  
+  h6 {
+    font-weight: bold;
+    font-size: .67rem;
+  }
 
-h4 {
-  font-weight: bold;
-  font-size: 1rem;
-}
+  a {
+    @apply
+    cursor-pointer
+  }
 
-h5 {
-  font-weight: bold;
-  font-size: .83rem;
-}
+  html,
+  body {
+    @apply 
+    bg-white-dark;
+  }
 
-h6 {
-  font-weight: bold;
-  font-size: .67rem;
-}
+  main {
+    @apply
+    px-2
+    py-5
+    max-w-4xl
+    mx-auto;
+  }
 
-a {
-  @apply
-  cursor-pointer
-}
+  input {
+    @apply
+    text-sm 
+    p-3
+    block
+    w-full
+    border-2
+    border-primary
+    rounded-md
+    placeholder-primary;
+  }
 
-html,
-body {
-  @apply 
-  bg-white-dark;
-}
+  label {
+    @apply
+    text-base
+    text-primary
+    font-semibold
+    pointer-events-none;
+  }
 
-main {
-  @apply
-  px-2
-  py-5
-  max-w-4xl
-  mx-auto;
+  .inputGroup > label {
+    @apply
+    text-base
+    text-primary
+    absolute
+    pointer-events-none
+    left-2
+    top-[-8px]
+    px-2
+    bg-white;  
+    
+    transition: 0.2s ease all; 
+    -moz-transition: 0.2s ease all; 
+    -webkit-transition: 0.2s ease all;
+  }
+
+  button {
+    @apply
+    p-2
+    rounded-md
+    font-semibold;
+  }
 }

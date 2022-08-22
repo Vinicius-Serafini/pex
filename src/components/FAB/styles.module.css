@@ -1,0 +1,32 @@
+.FAB {
+  @apply
+  fixed
+  bottom-[7rem]
+  md:bottom-10
+  right-10
+  lg:right-[6rem]
+  h-20
+  md:h-16
+  w-20
+  md:w-16
+  rounded-full
+  bg-primary;
+}
+
+.btn {
+  @apply
+  h-full
+  w-full
+  text-center
+  grid
+  place-items-center;
+}
+
+.icon {
+  @apply
+  text-white
+  h-16
+  md:h-12
+  w-16
+  md:w-12
+}
