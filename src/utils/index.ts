@@ -33,5 +33,23 @@ export const isCurrentUserTheTeamOwner = (team: Team, user: User | null): boolea
     return false;
   }
 
-  return user.uid == team.owner.uid;
+  return user.uid == (typeof team.owner == 'string' ? team.owner : team.owner.uid);
+}
+
+export const addDays = (date: Date, days: number) => {
+  const result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
+}
+
+export const copyToClipboard = (text: string) => {
+  /* Copy the text inside the text field */
+
+  if (!navigator.clipboard) {
+    return false;
+  }
+
+  navigator.clipboard.writeText(text);
+
+  return true;
 }

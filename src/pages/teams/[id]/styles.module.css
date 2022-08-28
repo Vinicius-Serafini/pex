@@ -1,3 +1,10 @@
+.main {
+  @apply
+  flex
+  flex-col
+  gap-4
+} 
+
 .stats {
   @apply
   pt-2
@@ -41,4 +48,47 @@
 .card {
   @apply
   w-full
+}
+
+.floatingInviteBtn {
+  @apply
+  flex
+  fixed
+  bottom-8
+  mx-auto
+  bg-white
+  shadow-md
+  rounded-xl
+  z-[1000]
+  left-[50%]
+  translate-x-[-50%]
+  overflow-clip
+  w-fit
+  border-2
+  border-primary
+}
+
+.acceptBtn {
+  @apply
+  bg-primary
+  rounded-none
+  hover:bg-primary-light
+  p-3
+  w-36
+  text-center
+}
+
+.rejectBtn {
+  @apply
+  text-center
+  w-36
+  text-red-600
+  hover:text-red-400
+}
+
+.lineupWrapper {
+  @apply
+  w-full
+  flex
+  justify-center
 }

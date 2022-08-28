@@ -17,7 +17,8 @@ export function AddPlayersPositionModal({ modalState, close, addPlayer }: AddPla
 
   const { team, lineup } = useCurrentTeam();
 
-  const availablePlayers = team.players ? team.players.filter(player => {
+  // @ts-ignore: Unreachable code error
+  const availablePlayers = team.get().players?.length > 0 ? team.get().players.filter(player => {
     const duplicate_player = lineup.get().flat().find((position: Position) => {
       if (!position) {
         return false;

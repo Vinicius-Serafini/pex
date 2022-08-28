@@ -15,9 +15,10 @@ type FormationModalType = {
   isOpened: boolean,
   closeModal: Function,
   position?: any
+  editable?: boolean
 }
 
-export function FormationModal({ isOpened, closeModal, position }: FormationModalType) {
+export function FormationModal({ isOpened, closeModal, position, editable = false }: FormationModalType) {
   const { lineup, team } = useCurrentTeam();
 
   const { user } = useAuth();
@@ -25,15 +26,23 @@ export function FormationModal({ isOpened, closeModal, position }: FormationModa
   const [modalState, setmodalState] = useState<any>({ is_substitute: null, is_opened: false });
 
   const openAddPlayerModal = (is_substitute: boolean) => {
-    setmodalState({ is_substitute: is_substitute, is_opened: true });
+    if (editable) {
+      setmodalState({ is_substitute: is_substitute, is_opened: true });
+    }
   }
 
   const closeAddPlayerModal = () => {
-    setmodalState({ is_substitute: null, is_opened: false });
+    if (editable) {
+      setmodalState({ is_substitute: null, is_opened: false });
+    }
   }
 
   const addPlayer = (player: User, is_substitute: boolean) => {
-    if (!isCurrentUserTheTeamOwner(team, user)) {
+    if (!editable) {
+      return;
+    }
+
+    if (!isCurrentUserTheTeamOwner(team.get(), user)) {
       return;
     }
 
@@ -66,7 +75,7 @@ export function FormationModal({ isOpened, closeModal, position }: FormationModa
                     <UserCard
                       user={position.first}
                     />
-                    {isCurrentUserTheTeamOwner(team, user) && (
+                    {(isCurrentUserTheTeamOwner(team.get(), user) && editable) && (
                       <div className={style.actions}>
                         <button
                           className={style.editBtn}
@@ -90,7 +99,7 @@ export function FormationModal({ isOpened, closeModal, position }: FormationModa
                 </div>
               ) : (
                 <>
-                  {!lineup.isLineupFull && isCurrentUserTheTeamOwner(team, user) ? (
+                  {(!lineup.isLineupFull && isCurrentUserTheTeamOwner(team.get(), user) && editable) ? (
                     <button
                       className={style.addPlayerBtn}
                       onClick={() => openAddPlayerModal(false)}>
@@ -112,7 +121,7 @@ export function FormationModal({ isOpened, closeModal, position }: FormationModa
                 <div>
                   {position?.substitutes?.length > 0 ? (
                     <>
-                      {isCurrentUserTheTeamOwner(team, user) && (
+                      {(isCurrentUserTheTeamOwner(team.get(), user) && editable) && (
                         <button
                           className={style.addPlayerBtn}
                           onClick={() => openAddPlayerModal(true)}>
@@ -129,7 +138,7 @@ export function FormationModal({ isOpened, closeModal, position }: FormationModa
                             <UserCard
                               user={player}
                             />
-                            {isCurrentUserTheTeamOwner(team, user) && (
+                            {(isCurrentUserTheTeamOwner(team.get(), user) && editable) && (
                               <div className={style.actions}>
                                 <button
                                   className={style.deleteBtn}
@@ -146,7 +155,7 @@ export function FormationModal({ isOpened, closeModal, position }: FormationModa
                     </>
                   ) : (
                     <>
-                      {isCurrentUserTheTeamOwner(team, user) && (
+                      {(isCurrentUserTheTeamOwner(team.get(), user) && editable) && (
                         <button
                           className={style.addPlayerBtn}
                           onClick={() => openAddPlayerModal(true)}>
@@ -167,11 +176,13 @@ export function FormationModal({ isOpened, closeModal, position }: FormationModa
         )}
       />
 
-      <AddPlayersPositionModal
-        modalState={modalState}
-        close={closeAddPlayerModal}
-        addPlayer={addPlayer}
-      />
+      {editable && (
+        <AddPlayersPositionModal
+          modalState={modalState}
+          close={closeAddPlayerModal}
+          addPlayer={addPlayer}
+        />
+      )}
 
     </>
   )

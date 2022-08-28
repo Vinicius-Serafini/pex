@@ -8,7 +8,7 @@ export type User = {
 export type Team = {
   uid?: string;
   name: string;
-  owner: User; //User.id 
+  owner: User | string; //User.id 
   players?: Array<User>;
   lineup?: RawLineup
 };
@@ -88,6 +88,11 @@ export type LineupObject = {
   remove: (player: User) => boolean
 }
 
+export type TeamObject = {
+  get: () => Team;
+  removePlayer: (player: User) => void;
+}
+
 export type Player = {
   user: User,
   position: PositionLabel
@@ -112,3 +117,14 @@ export type MatchResult = {
   goals: Array<{ user_id: string }>;
   cards: Array<{ type: 'RED' | 'YELLOW'; user_id: string }>;
 }
+
+export type Invite = {
+  uid: string;
+  expires_at: Date | string;
+  created_at: Date | string;
+  updated_at?: Date | string;
+  status: InviteStatus,
+  updated_by?: string //userId
+}
+
+export type InviteStatus = "ACCEPTED" | "REJECTED" | "PENDING"

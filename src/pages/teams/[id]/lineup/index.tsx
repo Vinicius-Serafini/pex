@@ -110,7 +110,7 @@ const Lineup: NextPage = ({ team }: InferGetServerSidePropsType<typeof getServer
             </div>
             <div>
               <h2>Escalação</h2>
-              <FormationCard />
+              <FormationCard editable />
             </div>
           </div>
           <SubstitutesList />

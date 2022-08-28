@@ -1,5 +1,5 @@
-import { addDoc, collection, deleteDoc, doc, DocumentData, DocumentReference, Firestore, getDoc, getDocs, query, where } from "firebase/firestore";
-import { Player, Team } from "src/types";
+import { addDoc, collection, deleteDoc, doc, DocumentData, DocumentReference, Firestore, getDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
+import { Player, Team, User } from "src/types";
 import { eagerLoadFirestoreDocs } from "src/utils";
 import { clientFirestore } from "./firebaseClient";
 import { getTeamRawLineup } from "./lineupService";
@@ -24,9 +24,9 @@ export const getTeams = async (user_id: string) => {
   const teams = Promise.all(querySnapshop.docs.map(async doc => {
     const team = doc.data();
     return {
-      uid: team.uid,
+      uid: doc.id,
       name: team.name,
-      owner: await getUserFromRef(team.owner),
+      owner: team.owner.id,
       players: await getTeamPlayers(team.players),
     };
   }));
@@ -57,10 +57,21 @@ export const getTeam = async (uid: string): Promise<Team | null> => {
   const team = teamSnap.data();
 
   return {
-    uid: team.uid,
+    uid: teamSnap.id,
     name: team.name,
-    owner: await getUserFromRef(team.owner),
+    owner: team.owner.id,
     players: await getTeamPlayers(team.players),
     lineup: await getTeamRawLineup(team.uid)
   };
+}
+
+export const addPlayer = async (team: Team, user: User) => {
+  const teamRef = await updateDoc(doc(clientFirestore, 'teams', team.uid as string), {
+    players: [
+      ...team.players?.map((p: User) => doc(clientFirestore, `users/${p.uid}`)) as Array<DocumentReference>,
+      doc(clientFirestore, `users/${user.uid}`)
+    ]
+  });
+
+  return true;
 }
