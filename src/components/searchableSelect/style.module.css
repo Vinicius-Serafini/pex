@@ -1,0 +1,9 @@
+.selectWrapper {
+  @apply
+  inputGroup;
+}
+
+.error {
+  @apply
+  text-red-600
+}

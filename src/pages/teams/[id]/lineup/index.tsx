@@ -3,7 +3,7 @@ import Image from "next/image";
 import { CurrentTeamContextProvider } from "src/contexts/CurrentTeamContext";
 import { useCurrentTeam } from "src/hooks/useCurrentTeam";
 import useLineup from "src/hooks/useLineup";
-import { withAuth } from "src/lib/middleware/withAuth";
+import { withAuth } from "src/middleware/withAuth";
 import { buildLineup } from "src/services/lineupService";
 import { getTeam, getTeamPlayers } from "src/services/teamService";
 import { User } from "src/types";

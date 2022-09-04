@@ -18,7 +18,8 @@
   rounded-md
   p-2 
   w-full
-  drop-shadow-md;
+  drop-shadow-md
+  bg-white;
 }
 
 .search > .icon {

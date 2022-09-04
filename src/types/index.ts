@@ -107,10 +107,6 @@ export type Match = {
   place: Place;
 }
 
-export type Place = {
-  // Dados do Places API
-}
-
 export type MatchResult = {
   uid: string;
   match_id: string;
@@ -127,4 +123,23 @@ export type Invite = {
   updated_by?: string //userId
 }
 
-export type InviteStatus = "ACCEPTED" | "REJECTED" | "PENDING"
+export type InviteStatus = "ACCEPTED" | "REJECTED" | "PENDING";
+
+export type Place = {
+  coordinates: {
+    lat: number;
+    lon: number;
+  };
+  address: {
+    state: {
+      initials: string;
+      name: string;
+    };
+    city: string;
+    postcode: string;
+    street: string;
+    suburb: string;
+  };
+  name: string;
+  place_id?: string;
+}

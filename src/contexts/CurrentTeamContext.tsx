@@ -1,6 +1,7 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import { useAuth } from "src/hooks/useAuth";
 import useLineup from "src/hooks/useLineup";
+import { removePlayer } from "src/services/teamService";
 import { Lineup, LineupObject, Team, TeamObject, User } from "src/types";
 
 type CurrentTeamContextProps = {
@@ -25,7 +26,7 @@ export function CurrentTeamContextProvider({ current_team, children }: CurrentTe
     get() {
       return _team;
     },
-    removePlayer(player: User) {
+    async removePlayer(player: User) {
       if (player.uid == (typeof _team.owner == "string" ? _team.owner : _team.owner.uid)) {
         throw Error('Cannot remove the team owner')
       }
@@ -35,6 +36,8 @@ export function CurrentTeamContextProvider({ current_team, children }: CurrentTe
       }
 
       lineup.remove(player);
+
+      await removePlayer(_team, player);
 
       _setTeam({
         ..._team,

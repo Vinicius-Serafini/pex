@@ -8,7 +8,7 @@ import TeamCard from '../../components/cards/team';
 import { FAB } from 'src/components/FAB';
 import CreateEditTeamModal from 'src/components/modals/createEditTeam';
 import { useEffect, useRef, useState } from 'react';
-import { withAuth } from 'src/lib/middleware/withAuth';
+import { withAuth } from 'src/middleware/withAuth';
 import useTeams from 'src/hooks/useTeams';
 import { useAuth } from 'src/hooks/useAuth';
 import { Team } from 'src/types';
@@ -33,8 +33,8 @@ const Teams: NextPage = () => {
 
   const FILTERS = [
     { title: 'Todos', condition: (team: Team) => true },
-    { title: 'Organizador', condition: (team: Team) => user?.uid == team.owner.uid },
-    { title: 'Jogador', condition: (team: Team) => team.players?.find(player => player.uid == user?.uid) && user?.uid != team.owner.uid }
+    { title: 'Organizador', condition: (team: Team) => user?.uid == (typeof team.owner == 'string' ? team.owner : team.owner.uid) },
+    { title: 'Jogador', condition: (team: Team) => team.players?.find(player => player.uid == user?.uid) && user?.uid != (typeof team.owner == 'string' ? team.owner : team.owner.uid) }
   ];
 
   useEffect(() => {
@@ -92,7 +92,7 @@ const Teams: NextPage = () => {
                   <button>
                     <TeamCard
                       team={team}
-                      isUserOwner={team.owner.uid == user?.uid}
+                      isUserOwner={(typeof team.owner == 'string' ? team.owner : team.owner.uid) == user?.uid}
                     />
                   </button>
                 </Link>

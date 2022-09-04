@@ -75,3 +75,28 @@ export const addPlayer = async (team: Team, user: User) => {
 
   return true;
 }
+
+export const removePlayer = async (team: Team, user: User) => {
+  // const teamRef = await updateDoc(doc(clientFirestore, 'teams', team.uid as string), {
+  //   players: [
+  //     ...team.players?.filter((p: User) => p.uid != user.uid)
+  //     .map((p: User) => doc(clientFirestore, `users/${p.uid}`)) as Array<DocumentReference>,
+  //   ]
+  // });
+
+  const players = [
+    ...team.players?.filter((p: User) => p.uid != user.uid)
+      .map((p: User) => doc(clientFirestore, `users/${p.uid}`)) as Array<DocumentReference>,
+  ]
+
+  await updateTeam(team, { players })
+
+  return true;
+}
+
+
+export const updateTeam = async (team: Team, data: any) => {
+  const teamRef = await updateDoc(doc(clientFirestore, 'teams', team.uid as string), data);
+
+  return true;
+}

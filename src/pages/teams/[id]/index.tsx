@@ -10,9 +10,9 @@ import UserCard from "../../../components/cards/user";
 import { useRouter } from "next/router";
 import { getTeam } from "src/services/teamService";
 import { Player, RawLineup, Team, User } from "src/types";
-import { withAuth } from "src/lib/middleware/withAuth";
+import { withAuth } from "src/middleware/withAuth";
 import { CurrentTeamContextProvider } from "src/contexts/CurrentTeamContext";
-import { withTeam } from "src/lib/middleware/withTeam";
+import { withTeam } from "src/middleware/withTeam";
 import { generateInvite, getInvite, isInviteValid, updateInvite } from "src/services/inviteService";
 import toast from "react-hot-toast";
 import { copyToClipboard } from "src/utils";
@@ -20,6 +20,7 @@ import { useAuth } from "src/hooks/useAuth";
 import { useEffect, useState } from "react";
 import FormationCard from "src/components/cards/formation";
 import { buildLineup } from "src/services/lineupService";
+import CreateMatchModal from "src/components/modals/createMatchModal";
 
 export const getServerSideProps = withAuth(withTeam(async (ctx: GetServerSidePropsContext) => {
   const team_id = ctx.query.id as string;
@@ -44,6 +45,8 @@ const TeamIndex: NextPage = ({ team, invite }: InferGetServerSidePropsType<typeo
   const router = useRouter();
   const { user } = useAuth();
   const [showInvite, setShowInvite] = useState<boolean>(false);
+
+  const [showNewMatchModal, setShowNewMatchModal] = useState<boolean>(false)
 
   useEffect(() => {
     if (user
@@ -125,7 +128,7 @@ const TeamIndex: NextPage = ({ team, invite }: InferGetServerSidePropsType<typeo
   const quickAccesses = [
     { label: 'Adicionar', icon: faUserPlus, onClick: createInvite },
     { label: 'Escalação', icon: faPeopleGroup, onClick: () => router.push(`${router.asPath}/lineup`) },
-    { label: 'Nova Partida', icon: faUserGroup, onClick: () => console.log('hehehe') }
+    { label: 'Nova Partida', icon: faUserGroup, onClick: () => setShowNewMatchModal(true) }
   ]
 
   return (
@@ -203,6 +206,7 @@ const TeamIndex: NextPage = ({ team, invite }: InferGetServerSidePropsType<typeo
           )}
         </main>
       </CurrentTeamContextProvider>
+      <CreateMatchModal closeModal={() => setShowNewMatchModal(false)} isOpened={showNewMatchModal} />
     </div>
   );
 }

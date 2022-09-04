@@ -1,0 +1,47 @@
+.modalBody {
+  @apply
+  min-w-[350px]
+  pt-5
+}
+
+.btn {
+  @apply
+  baseBtn
+  px-5;
+}
+
+.btnWrapper {
+  @apply
+  mt-10
+  flex
+  justify-end
+}
+
+.form {
+  @apply
+  flex
+  flex-col
+  gap-4
+}
+
+.row {
+  @apply
+  flex
+  gap-1
+  w-full
+}
+
+.cityOption {
+  @apply
+  p-2
+}
+
+.cityOption__title {
+  @apply 
+  font-bold;
+}
+
+.cityOption__description {
+  @apply
+  text-sm;
+}

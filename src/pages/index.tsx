@@ -8,7 +8,7 @@ import styles from './styles.module.css';
 import UserSticker from '../components/userSticker';
 import { useAuth } from 'src/hooks/useAuth';
 import { User } from 'src/types';
-import { withAuth } from 'src/lib/middleware/withAuth';
+import { withAuth } from 'src/middleware/withAuth';
 
 export const getServerSideProps = withAuth();
 
