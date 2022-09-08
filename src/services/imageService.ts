@@ -8,8 +8,8 @@ const api = axios.create({
   timeout: 5000,
 });
 
-export async function getPlaces(search: string): Promise<Array<Place>> {
-  const { data } = await api.get(`places?search=${search}`);
+export async function getRandomImage(): Promise<string> {
+  const { data } = await api.get('match/image');
 
-  return data.places;
+  return data.url;
 }

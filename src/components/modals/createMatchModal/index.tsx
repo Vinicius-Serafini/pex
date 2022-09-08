@@ -13,6 +13,8 @@ import { SyntheticEvent, useEffect, useState } from "react";
 import useDebounce from "src/hooks/useDebounce";
 import { getPlaces } from "src/services/placesService";
 import toast from "react-hot-toast";
+import { createMatch } from "src/services/matchService";
+import { useCurrentTeam } from "src/hooks/useCurrentTeam";
 
 type CreateMatchModalProps = {
   isOpened: boolean,
@@ -20,9 +22,9 @@ type CreateMatchModalProps = {
 }
 
 type FormikValues = {
-  matchName: string;
-  matchDate: string;
-  matchTime: string;
+  name: string;
+  date: string;
+  time: string;
   duration: number;
   place: Place | any;
 }
@@ -49,6 +51,7 @@ const CityOption = (option: OptionProps) => {
 
 const CreateMatchModal = ({ isOpened, closeModal }: CreateMatchModalProps) => {
   const { user } = useAuth();
+  const { team } = useCurrentTeam();
   const router = useRouter();
   const [selectedPlace, setSelectedPlace] = useState<Place>();
   const [places, setPlaces] = useState<Array<Place>>([]);
@@ -98,30 +101,30 @@ const CreateMatchModal = ({ isOpened, closeModal }: CreateMatchModalProps) => {
     { label: '4h', value: 240 },
   ];
 
-  const handleSubmit = async (form: FormikValues, actions: FormikHelpers<FormikValues>) => {
-    console.log(form);
+  const handleSubmit = async (
+    { date, name, time, duration, place }: FormikValues,
+    actions: FormikHelpers<FormikValues>) => {
+    const team_id = await createMatch({ owner: team.get(), date, name, time, duration, place });
 
-    // const team_id = await handleCreateMatch(matchName);
+    if (!team_id) {
+      return;
+    }
 
-    // if (!team_id) {
-    //   return;
-    // }
-
-    // return router.push(`matches/${team_id}`);
+    return router.replace(`match/${team_id}`);
   }
 
   const FormSchema = Yup.object().shape({
-    matchName: Yup.string().required('Este campo é obrigatório'),
-    matchDate: Yup.date().required('Este campo é obrigatório'),
-    matchTime: Yup.string().required('Este campo é obrigatório'),
+    name: Yup.string().required('Este campo é obrigatório'),
+    date: Yup.date().required('Este campo é obrigatório'),
+    time: Yup.string().required('Este campo é obrigatório'),
     duration: Yup.number().required('Este campo é obrigatório'),
     place: Yup.mixed<Place>().required('Este campo é obrigatório')
   });
 
   const initalValues = {
-    matchName: '',
-    matchDate: '',
-    matchTime: '',
+    name: '',
+    date: '',
+    time: '',
     duration: durations[0].value,
     place: ''
   };
@@ -148,20 +151,20 @@ const CreateMatchModal = ({ isOpened, closeModal }: CreateMatchModalProps) => {
               <Form className={style.form}>
                 <Input
                   label='Nome da partida'
-                  name="matchName"
+                  name="name"
                   type="text"
                 />
 
                 <div className={style.row}>
                   <Input
                     label='Data da partida'
-                    name="matchDate"
+                    name="date"
                     type="date"
                   />
 
                   <Input
                     label='Início da partida'
-                    name="matchTime"
+                    name="time"
                     type="time"
                   />
                 </div>

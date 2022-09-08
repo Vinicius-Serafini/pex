@@ -67,6 +67,7 @@
   text-left
   flex
   justify-between
+  items-center
   w-full;
 }
 

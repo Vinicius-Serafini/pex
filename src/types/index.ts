@@ -99,12 +99,14 @@ export type Player = {
 }
 
 export type Match = {
-  uid: string;
-  name: string;
-  host: string; //Team.id
-  guest: string; //Team.id
-  schedule: Date;
+  uid?: string;
+  duration: number;
   place: Place;
+  owner: string;
+  confirmed?: Array<User>;
+  date: Date;
+  name: string;
+  imgUrl: string;
 }
 
 export type MatchResult = {

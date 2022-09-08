@@ -36,9 +36,15 @@ export const isCurrentUserTheTeamOwner = (team: Team, user: User | null): boolea
   return user.uid == (typeof team.owner == 'string' ? team.owner : team.owner.uid);
 }
 
-export const addDays = (date: Date, days: number) => {
+export const addDays = (date: Date, days: number): Date => {
   const result = new Date(date);
   result.setDate(result.getDate() + days);
+  return result;
+}
+
+export const addMilisecondsToDate = (date: Date, miliseconds: number): Date => {
+  const result = new Date(date);
+  result.setTime(date.getTime() + miliseconds);
   return result;
 }
 
@@ -53,3 +59,4 @@ export const copyToClipboard = (text: string) => {
 
   return true;
 }
+

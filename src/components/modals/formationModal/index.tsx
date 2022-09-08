@@ -75,7 +75,7 @@ export function FormationModal({ isOpened, closeModal, position, editable = fals
                     <UserCard
                       user={position.first}
                     />
-                    {(isCurrentUserTheTeamOwner(team.get(), user) && editable) && (
+                    {(editable && isCurrentUserTheTeamOwner(team.get(), user)) && (
                       <div className={style.actions}>
                         <button
                           className={style.editBtn}
@@ -99,7 +99,7 @@ export function FormationModal({ isOpened, closeModal, position, editable = fals
                 </div>
               ) : (
                 <>
-                  {(!lineup.isLineupFull && isCurrentUserTheTeamOwner(team.get(), user) && editable) ? (
+                  {(editable && !lineup.isLineupFull && isCurrentUserTheTeamOwner(team.get(), user)) ? (
                     <button
                       className={style.addPlayerBtn}
                       onClick={() => openAddPlayerModal(false)}>
@@ -121,7 +121,7 @@ export function FormationModal({ isOpened, closeModal, position, editable = fals
                 <div>
                   {position?.substitutes?.length > 0 ? (
                     <>
-                      {(isCurrentUserTheTeamOwner(team.get(), user) && editable) && (
+                      {(editable && isCurrentUserTheTeamOwner(team.get(), user)) && (
                         <button
                           className={style.addPlayerBtn}
                           onClick={() => openAddPlayerModal(true)}>
@@ -138,7 +138,7 @@ export function FormationModal({ isOpened, closeModal, position, editable = fals
                             <UserCard
                               user={player}
                             />
-                            {(isCurrentUserTheTeamOwner(team.get(), user) && editable) && (
+                            {(editable && isCurrentUserTheTeamOwner(team.get(), user)) && (
                               <div className={style.actions}>
                                 <button
                                   className={style.deleteBtn}
@@ -155,7 +155,7 @@ export function FormationModal({ isOpened, closeModal, position, editable = fals
                     </>
                   ) : (
                     <>
-                      {(isCurrentUserTheTeamOwner(team.get(), user) && editable) && (
+                      {(editable && isCurrentUserTheTeamOwner(team.get(), user)) && (
                         <button
                           className={style.addPlayerBtn}
                           onClick={() => openAddPlayerModal(true)}>
