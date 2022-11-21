@@ -3,7 +3,8 @@
   flex 
   flex-col
   items-center
-  cursor-pointer;
+  cursor-pointer
+  w-fit
 }
 
 .quickAccess > button {

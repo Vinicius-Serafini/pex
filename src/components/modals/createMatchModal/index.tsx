@@ -34,7 +34,7 @@ const CityOption = (option: OptionProps) => {
   const place = option.data as Place
 
   const formatAddress = (place: Place) => {
-    return `${place.address.city} - ${place.address.state?.name || ''}, ${place.address.street}, ${place.address?.suburb || ''}, ${place.address.postcode}`
+    return `${place.address.city || ''} - ${place.address.state?.name || ''}, ${place.address.street || ''}, ${place.address?.suburb || ''}, ${place.address.postcode || ''}`
   }
 
   return (
@@ -104,13 +104,13 @@ const CreateMatchModal = ({ isOpened, closeModal }: CreateMatchModalProps) => {
   const handleSubmit = async (
     { date, name, time, duration, place }: FormikValues,
     actions: FormikHelpers<FormikValues>) => {
-    const team_id = await createMatch({ owner: team.get(), date, name, time, duration, place });
+    const match_id = await createMatch({ owner: team.get(), date, name, time, duration, place });
 
-    if (!team_id) {
+    if (!match_id) {
       return;
     }
 
-    return router.replace(`match/${team_id}`);
+    return router.replace(`/match/${match_id}`);
   }
 
   const FormSchema = Yup.object().shape({
@@ -217,41 +217,3 @@ const CreateMatchModal = ({ isOpened, closeModal }: CreateMatchModalProps) => {
 }
 
 export default CreateMatchModal;
-
-
-const temp_places = [{
-  name: "Primato Supermercado",
-  address: {
-    state: {
-      name: "Paraná",
-      initials: "PR"
-    },
-    street: "Rua Tomaz Gonzaga",
-    suburb: "Vila Pioneiro",
-    city: "Toledo",
-    postcode: "85914-120",
-  },
-  coordinates: {
-    lon: -53.723895,
-    lat: -24.7419195,
-  },
-  place_id: "51745e6397a8dc4ac059c2c3b46feebd38c0f00103f9011d52c89c00000000c002019203145072696d61746f2053757065726d65726361646f"
-},
-{
-  name: "Primato Supermercadooooo",
-  address: {
-    state: {
-      name: "Paraná",
-      initials: "PR"
-    },
-    street: "Rua Tomaz Gonzaga",
-    suburb: "Vila Pioneiro",
-    city: "Toledo",
-    postcode: "85914-120",
-  },
-  coordinates: {
-    lon: -53.723895,
-    lat: -24.7419195,
-  },
-  place_id: "414151745e6397a8dc4ac059c2c3b46feebd38c0f00103f9011d52c89c00000000c002019203145072696d61746f2053757065726d65726361646f"
-},];

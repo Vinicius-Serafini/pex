@@ -23,6 +23,7 @@ export function withTeam(gssp?: GetServerSideProps): GetServerSideProps {
     } catch (err) {
       ctx.res.writeHead(302, { Location: '/teams' });
       ctx.res.end();
+      console.log(err)
 
       return {
         redirect: {

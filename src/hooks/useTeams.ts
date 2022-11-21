@@ -13,7 +13,7 @@ export default function useTeams() {
       setTeams(await getTeams(user_id));
     }
 
-    if (user) {
+    if (user && teams.length == 0) {
       handleGetTeams(user.uid);
     }
 

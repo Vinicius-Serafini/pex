@@ -10,7 +10,7 @@ type BaseModalProps = {
   withBackdrop: boolean,
   header: ReactNode,
   body: ReactNode,
-  closeModal: Function
+  closeModal?: Function
 }
 
 const BaseModal = ({ isOpened, header, body, isClosable, closeModal, withBackdrop }: BaseModalProps) => {
@@ -26,7 +26,7 @@ const BaseModal = ({ isOpened, header, body, isClosable, closeModal, withBackdro
               </div>
               {isClosable ? (
                 <button
-                  onClick={() => closeModal()}
+                  onClick={() => { if (isClosable) { closeModal?.() } }}
                   className={styles.closeBtn}>
                   <FontAwesomeIcon icon={faClose} />
                 </button>

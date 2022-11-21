@@ -30,35 +30,39 @@ export function buildLineup(initial_lineup: RawLineup | undefined): Lineup {
 }
 
 export const getTeamRawLineup = async (teamId: string) => {
+  try {
+    const lineupsRef = collection(clientFirestore, 'teams', teamId, 'lineups');
 
-  const lineupsRef = collection(clientFirestore, 'teams', teamId, 'lineups');
-
-  const querySnapshop = await getDocs(lineupsRef);
-
-  // @ts-ignore: Unreachable code error
-  const rawLineup = await Object.entries(querySnapshop.docs[0]?.data()).reduce(async (acc, [key, values]) => {
-    // @ts-ignore: Unreachable code error
-    const body = await acc;
+    const querySnapshop = await getDocs(lineupsRef);
 
     // @ts-ignore: Unreachable code error
-    body[key] = {
-      first: values.first ? await getUserFromRef(values.first) : {},
-      ...(values.substitutes?.length > 0 ?
-        {
-          substitutes: await Promise.all(
-            values.substitutes.map(
-              // @ts-ignore: Unreachable code error
-              async player => await getUserFromRef(player)
+    const rawLineup = await Object.entries(querySnapshop.docs[0]?.data()).reduce(async (acc, [key, values]) => {
+      // @ts-ignore: Unreachable code error
+      const body = await acc;
+
+      // @ts-ignore: Unreachable code error
+      body[key] = {
+        first: values.first ? await getUserFromRef(values.first) : {},
+        ...(values.substitutes?.length > 0 ?
+          {
+            substitutes: await Promise.all(
+              values.substitutes.map(
+                // @ts-ignore: Unreachable code error
+                async player => await getUserFromRef(player)
+              )
             )
-          )
-        }
-        : [])
-    }
+          }
+          : [])
+      }
 
-    return body;
-  }, Promise.resolve({}));
+      return body;
+    }, Promise.resolve({}));
 
-  return rawLineup;
+    return rawLineup;
+  } catch (err) {
+    return [];
+  }
+
 }
 
 export const saveRawLineup = async (teamId: string, rawLineup: RawLineup) => {
@@ -85,7 +89,7 @@ export const saveRawLineup = async (teamId: string, rawLineup: RawLineup) => {
 
   const querySnapshop = await getDocs(lineupsRef);
 
-  const lineupId = querySnapshop.docs?.[0].id;
+  const lineupId = querySnapshop.docs?.[0]?.id;
 
   if (!lineupId) {
     const newLineupId = await addDoc(lineupsRef, _rawLineup);

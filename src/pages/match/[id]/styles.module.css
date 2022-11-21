@@ -246,3 +246,23 @@
   @apply
   text-red-600
 }
+
+.adminOptions {
+  @apply
+  pt-8
+  w-full
+  justify-start
+}
+
+.gols {
+  @apply
+  flex
+  gap-4
+}
+
+.addBtn {
+  @apply
+  baseBtn
+  flex
+  gap-3
+}

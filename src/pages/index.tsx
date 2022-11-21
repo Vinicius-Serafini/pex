@@ -7,19 +7,61 @@ import Tabs from '../components/tabs';
 import styles from './styles.module.css';
 import UserSticker from '../components/userSticker';
 import { useAuth } from 'src/hooks/useAuth';
-import { User } from 'src/types';
+import { Goal, Match, User } from 'src/types';
 import { withAuth } from 'src/middleware/withAuth';
+import { getGoalsFromUser, getHistoryMatchesByuser, getMatchesByUser } from 'src/services/matchService';
+import { useEffect, useState } from 'react';
 
 export const getServerSideProps = withAuth();
 
 const Home: NextPage = () => {
   const { user } = useAuth();
 
+  const [matches, setMatches] = useState<Array<Match>>([]);
+  const [historyMatches, setHistoryMatches] = useState<Array<Match>>([]);
+  const [userGoals, setUserGoals] = useState<Array<Goal>>([]);
+
+  const getMatches = async () => {
+    const m = await getMatchesByUser(user as User);
+
+    setMatches(m);
+  }
+
+  const getHistoryMatches = async () => {
+    const _matches = await getHistoryMatchesByuser(user as User);
+
+    setHistoryMatches(_matches);
+  }
+
+  const getUserGoals = async () => {
+    const _goals = await getGoalsFromUser(user as User);
+
+    setUserGoals(_goals);
+  }
+
+  useEffect(() => {
+
+    if (user) {
+      if (matches.length == 0) {
+        getMatches();
+      }
+
+      if (historyMatches.length == 0) {
+        getHistoryMatches();
+      }
+
+      if (userGoals.length == 0) {
+        getUserGoals();
+      }
+    }
+  }, [user]);
+
+  const totalMatches = matches.length + historyMatches.length;
+
   const data = [
-    { title: 'Total de jogos', value: 10 },
-    { title: 'Total de gols', value: 5 },
-    { title: 'Vitórias', value: 7 },
-    { title: 'Média de gols:', value: 2.5 },
+    { title: 'Total de jogos', value: totalMatches },
+    { title: 'Total de gols', value: userGoals.length },
+    { title: 'Média de gols:', value: (userGoals.length / totalMatches).toFixed(2) },
   ]
 
   return (
@@ -34,6 +76,7 @@ const Home: NextPage = () => {
         <div className={styles.hero}>
           {user ? (<UserSticker user={user as User} />) : null}
           <div className={styles.statsContainer}>
+            {/* <h1>{user?.name}</h1> */}
             <div className={styles.statsWrapper}>
               {data.map(({ title, value }, index) => (
                 <div className={styles.stats} key={index}>
@@ -45,9 +88,9 @@ const Home: NextPage = () => {
               ))}
             </div>
             <div className={styles.btnStatsContainer}>
-              <BaseButton className={styles.btnStats}>
+              {/* <BaseButton className={styles.btnStats}>
                 <span>Estatísticas completas</span>
-              </BaseButton>
+              </BaseButton> */}
             </div>
           </div>
         </div>
@@ -55,23 +98,10 @@ const Home: NextPage = () => {
         <div className={styles.matchesList}>
           <Tabs tabs={[
             {
-              title: 'Próximos jogos', component: (
-                <div className={styles.matchesListBody}>
-                  {Array.from(Array(5).keys()).map((_, index) => (
-                    <MatchCard key={index.toString()} />
-                  ))}
-                </div>
-              )
+              title: 'Próximos jogos', component: <MatchesTab matches={matches} />
             },
             {
-              title: 'Histórico', component: (
-                <div className={styles.matchesListBody}>
-                  {Array.from(Array(5).keys()).map((_, index) => (
-                    // <MatchCard />
-                    <HistoryCard key={index.toString()} />
-                  ))}
-                </div>
-              )
+              title: 'Histórico', component: (<HistoryTab matches={historyMatches} />)
             },
           ]} />
         </div>
@@ -79,5 +109,46 @@ const Home: NextPage = () => {
     </div >
   )
 }
+
+type MatchesTabProps = {
+  matches: Array<Match>,
+}
+const MatchesTab = ({ matches }: MatchesTabProps) => {
+
+  const filteredMatches = matches.filter(
+    m => m.confirmed.length == 0 || m.confirmed.some(
+      confirmed => !confirmed || confirmed.status != "REJECTED")
+  );
+
+  return (
+    <div className={styles.matchesListBody}>
+      {filteredMatches.map(match => (
+        <MatchCard
+          key={match.uid}
+          match={match} />
+      ))}
+    </div>
+  );
+}
+
+type HistoryTabProps = {
+  matches: Array<Match>
+}
+
+const HistoryTab = ({ matches }: HistoryTabProps) => {
+
+  return (
+    <div className={styles.matchesListBody}>
+      {matches.map((match, index) => (
+        <HistoryCard
+          key={index.toString()}
+          match={match}
+        />
+      ))}
+    </div>
+
+  )
+}
+
 export default Home;
 

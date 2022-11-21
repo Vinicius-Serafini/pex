@@ -24,12 +24,12 @@ export const HeaderMobile = ({ handleLogOut, currentRoute }: HeaderMobileType) =
           <span>Times</span>
         </Link>
       </div>
-      <div className={style.btn}>
+      {/* <div className={style.btn}>
         <FontAwesomeIcon icon={faTrophy} />
         <Link href="/">
           <span>Torneios</span>
         </Link>
-      </div>
+      </div> */}
       <div className={style.btn}>
         <FontAwesomeIcon icon={faPowerOff} />
         <button onClick={() => handleLogOut()}>

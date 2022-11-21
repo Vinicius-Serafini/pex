@@ -65,6 +65,23 @@ export const getTeam = async (uid: string): Promise<Team | null> => {
   };
 }
 
+export const getTeamShallow = async (uid: string): Promise<Team | null> => {
+  const teamRef = doc(clientFirestore, 'teams', uid);
+  const teamSnap = await getDoc(teamRef);
+
+  if (!teamSnap.exists()) {
+    return null;
+  }
+
+  const team = teamSnap.data();
+
+  return {
+    uid: teamSnap.id,
+    name: team.name,
+    owner: team.owner.id,
+  };
+}
+
 export const addPlayer = async (team: Team, user: User) => {
   const teamRef = await updateDoc(doc(clientFirestore, 'teams', team.uid as string), {
     players: [

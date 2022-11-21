@@ -6,7 +6,8 @@
   text-white
   rounded-xl
   overflow-hidden
-  min-h-fit;
+  min-h-fit
+  cursor-pointer;
 }
 
 .colorOverlay {

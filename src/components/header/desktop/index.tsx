@@ -32,11 +32,11 @@ export const HeaderDesktop = ({ handleLogOut, currentRoute }: HeaderDesktopType)
             <a>Times</a>
           </h4>
         </Link>
-        <Link href="/">
+        {/* <Link href="/">
           <h4>
             <a>Torneios</a>
           </h4>
-        </Link>
+        </Link> */}
       </div>
       <div className={styles.logout}>
         <button

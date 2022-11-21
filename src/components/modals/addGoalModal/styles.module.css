@@ -1,0 +1,24 @@
+.body {
+  @apply
+  w-[340px]
+  sm:w-[400px]
+  max-w-full
+  my-8
+  flex
+  flex-col
+  gap-5
+}
+
+.footer {
+  @apply
+  flex 
+  w-full
+  justify-end
+  py-3
+}
+
+.acceptBtn {
+  @apply
+  baseBtn
+  px-5
+}

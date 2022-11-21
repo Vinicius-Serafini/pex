@@ -1,35 +1,119 @@
+import Link from "next/link";
+import React, { MouseEventHandler } from "react";
+import toast from "react-hot-toast";
+import { useAuth } from "src/hooks/useAuth";
+import { acceptMatch, rejectMatch } from "src/services/matchService";
+import { Match, User } from "src/types";
 import BaseButton from "../../buttons/baseButton";
 import style from './styles.module.css';
 
-const MatchCard = () => {
+type MatchCardProps = {
+  match: Match;
+}
+
+const MatchCard = ({ match }: MatchCardProps) => {
+
+  const { user } = useAuth();
+
+  const isMatchAccepted = () => {
+    if (!match.confirmed) {
+      return null;
+    }
+
+    const u = match.confirmed.find(c => c.user.uid == user?.uid);
+
+    if (u?.status == "ACCEPTED") {
+      return true;
+    }
+
+    if (u?.status == "REJECTED") {
+      return false;
+    }
+  }
+
+  const formatMatchDate = (date: Date): string => {
+    return `${date.getDate()}/${(date.getMonth() + 1)} - ${date.getHours()}:${date.getMinutes()}`
+  }
+
+  const handleAcceptMatch = async (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+
+    match = await acceptMatch(match, user as User) as Match;
+
+    toast('Convite aceito!',
+      {
+        icon: '✅',
+        style: {
+          borderRadius: '10px',
+          background: '#333',
+          color: '#fff',
+        },
+      }
+    );
+
+  }
+
+  const handleRejectMatch = async (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+
+    match = await rejectMatch(match, user as User) as Match;
+
+    toast('Convite recusado!',
+      {
+        icon: '❌',
+        style: {
+          borderRadius: '10px',
+          background: '#333',
+          color: '#fff',
+        },
+      }
+    );
+  }
+
   return (
-    <div
-      className={style.matchCardContainer}
-      style={{ backgroundImage: `url('https://p2.trrsf.com/image/fget/cf/648/0/images.terra.com/2021/10/12/905036494-612aa516eca58.jpeg')` }}>
-      <div className={style.colorOverlay} />
-      <div className={style.body}>
-        <div className={style.header}>
-          <h2 className={style.title}>Jogo de quarta da piazada</h2>
-          <div className={style.details}>
-            <p>Nome do lugar do jogo</p>
-            <p>dd/mm hh:mm</p>
+    <Link href={`/match/${match.uid}`}>
+      <div
+        className={style.matchCardContainer}
+        style={{ backgroundImage: `url('${match.imgUrl}')` }}>
+        <div className={style.colorOverlay} />
+        <div className={style.body}>
+          <div className={style.header}>
+            <h2 className={style.title}>{match.name}</h2>
+            <div className={style.details}>
+              <p>{match.place.name}</p>
+              <p>{formatMatchDate(match.date)}</p>
+            </div>
           </div>
-        </div>
-        <div className={style.teams}>
-          <h2>Time 1</h2>
-          <p>X</p>
-          <h2>Time 2</h2>
-        </div>
-        <div className={style.actions}>
-          <BaseButton className={style.acceptBtn}>
-            Tô dentro!
-          </BaseButton>
-          <BaseButton className={style.rejectBtn}>
-            Fora
-          </BaseButton>
-        </div>
+          <div className={style.teams}>
+            <h2>{typeof match.owner != 'string' ? match.owner.name : ''}</h2>
+            <p>X</p>
+            <h2>{match.invitedTeam ? match.invitedTeam.name : 'A definir'}</h2>
+          </div>
+          <div className={style.actions}>
+            {isMatchAccepted() == null ? (
+              <>
+                <BaseButton
+                  className={style.acceptBtn}
+                  onClick={handleAcceptMatch}>
+                  Tô dentro!
+                </BaseButton>
+                <BaseButton
+                  className={style.rejectBtn}
+                  onClick={handleRejectMatch}>
+                  Fora
+                </BaseButton>
+              </>
+            ) : (<>
+              {isMatchAccepted() == true && (
+                <span className={style.acceptBtn}>
+                  Aceito!
+                </span>
+              )}
+            </>)}
+          </div>
+        </div >
       </div >
-    </div >
+    </Link>
   )
 }
 

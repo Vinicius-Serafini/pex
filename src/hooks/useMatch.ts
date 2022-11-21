@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { MatchContext } from "src/contexts/MatchContext";
 
 export function useMatch() {
-  const { match, owner } = useContext(MatchContext);
+  const { match, owner, goals, setGoals } = useContext(MatchContext);
 
-  return { match, owner };
+  return { match, owner, goals, setGoals };
 }

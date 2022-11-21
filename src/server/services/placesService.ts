@@ -14,7 +14,7 @@ export async function geocode(search: string): Promise<Array<Place>> {
   const { results } = data;
 
   return results
-    .filter((place: any) => place.category && place.category.includes('sport'))
+    .filter((place: any) => place.category)
     .map((place: any): Place => {
       return {
         coordinates: {

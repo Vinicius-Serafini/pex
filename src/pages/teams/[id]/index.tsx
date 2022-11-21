@@ -9,11 +9,11 @@ import HistoryCard from "../../../components/cards/history";
 import UserCard from "../../../components/cards/user";
 import { useRouter } from "next/router";
 import { getTeam } from "src/services/teamService";
-import { Player, RawLineup, Team, User } from "src/types";
+import { Match, Player, RawLineup, Team, User } from "src/types";
 import { withAuth } from "src/middleware/withAuth";
 import { CurrentTeamContextProvider } from "src/contexts/CurrentTeamContext";
 import { withTeam } from "src/middleware/withTeam";
-import { generateInvite, getInvite, isInviteValid, updateInvite } from "src/services/inviteService";
+import { generateTeamInvite, getTeamInvite, isInviteValid, updateTeamInvite } from "src/services/inviteService";
 import toast from "react-hot-toast";
 import { copyToClipboard } from "src/utils";
 import { useAuth } from "src/hooks/useAuth";
@@ -21,13 +21,15 @@ import { useEffect, useState } from "react";
 import FormationCard from "src/components/cards/formation";
 import { buildLineup } from "src/services/lineupService";
 import CreateMatchModal from "src/components/modals/createMatchModal";
+import { getHistoryMatchesByuser, getMatchesByTeam } from "src/services/matchService";
+import { useCurrentTeam } from "src/hooks/useCurrentTeam";
 
 export const getServerSideProps = withAuth(withTeam(async (ctx: GetServerSidePropsContext) => {
   const team_id = ctx.query.id as string;
 
   const invite_id = ctx.query?.invite;
 
-  const invite = invite_id ? await getInvite(team_id, invite_id as string) : null;
+  const invite = invite_id ? await getTeamInvite(team_id, invite_id as string) : null;
 
   if (invite && !isInviteValid(invite)) {
     ctx.res.writeHead(302, { Location: '/teams' });
@@ -46,7 +48,9 @@ const TeamIndex: NextPage = ({ team, invite }: InferGetServerSidePropsType<typeo
   const { user } = useAuth();
   const [showInvite, setShowInvite] = useState<boolean>(false);
 
-  const [showNewMatchModal, setShowNewMatchModal] = useState<boolean>(false)
+  const [showNewMatchModal, setShowNewMatchModal] = useState<boolean>(false);
+  const [matches, setMatches] = useState<Array<Match>>([]);
+  const [historyMatches, setHistoryMatches] = useState<Array<Match>>([]);
 
   useEffect(() => {
     if (user
@@ -57,10 +61,11 @@ const TeamIndex: NextPage = ({ team, invite }: InferGetServerSidePropsType<typeo
 
   }, [user]);
 
-  const createInvite = async () => {
-    const invite_id = await generateInvite(team.uid);
 
-    const invite_link = `${process.env.NEXT_PUBLIC_APP_URL}teams/${team.uid}?invite=${invite_id}`
+  const createInvite = async () => {
+    const invite_id = await generateTeamInvite(team.uid);
+
+    const invite_link = `${process.env.NEXT_PUBLIC_APP_URL}/teams/${team.uid}?invite=${invite_id}`
 
     const success = copyToClipboard(invite_link);
 
@@ -81,11 +86,11 @@ const TeamIndex: NextPage = ({ team, invite }: InferGetServerSidePropsType<typeo
   }
 
   const acceptInvite = async () => {
-    await updateInvite(team, invite, "ACCEPTED", user as User);
+    await updateTeamInvite(team, invite, "ACCEPTED", user as User);
 
     toast('Convite aceito!',
       {
-        icon: '📋',
+        icon: '✅',
         style: {
           borderRadius: '10px',
           background: '#333',
@@ -100,11 +105,11 @@ const TeamIndex: NextPage = ({ team, invite }: InferGetServerSidePropsType<typeo
   }
 
   const rejectInvite = async () => {
-    await updateInvite(team, invite, "REJECTED", user as User);
+    await updateTeamInvite(team, invite, "REJECTED", user as User);
 
     toast('Convite recusado!',
       {
-        icon: '📋',
+        icon: '❌',
         style: {
           borderRadius: '10px',
           background: '#333',
@@ -129,7 +134,33 @@ const TeamIndex: NextPage = ({ team, invite }: InferGetServerSidePropsType<typeo
     { label: 'Adicionar', icon: faUserPlus, onClick: createInvite },
     { label: 'Escalação', icon: faPeopleGroup, onClick: () => router.push(`${router.asPath}/lineup`) },
     { label: 'Nova Partida', icon: faUserGroup, onClick: () => setShowNewMatchModal(true) }
-  ]
+  ];
+
+  const getMatches = async () => {
+    const m = await getMatchesByTeam(team);
+
+    setMatches(m);
+  }
+
+  const getHistoryMatches = async () => {
+    const _matches = await getHistoryMatchesByuser(user as User);
+
+    setHistoryMatches(_matches);
+  }
+
+  useEffect(() => {
+    if (user) {
+      if (matches.length == 0) {
+        getMatches();
+      }
+
+      if (historyMatches.length == 0) {
+        getHistoryMatches();
+      }
+    }
+  }, [user]);
+
+
 
   return (
     <div>
@@ -138,12 +169,12 @@ const TeamIndex: NextPage = ({ team, invite }: InferGetServerSidePropsType<typeo
           <Card className={style.card}>
             <h2>{team.name}</h2>
             <div className={style.stats}>
-              {stats.map(({ title, value }, index) => (
+              {/* {stats.map(({ title, value }, index) => (
                 <div className={style.stat} key={index}>
                   <p>{title}</p>
                   <span>{value}</span>
                 </div>
-              ))}
+              ))} */}
             </div>
           </Card>
           {team.owner == user?.uid && (
@@ -160,20 +191,16 @@ const TeamIndex: NextPage = ({ team, invite }: InferGetServerSidePropsType<typeo
           <div className={style.body}>
             <Tabs tabs={[
               {
-                title: 'Próximos jogos', component: (
-                  <div className={style.matchesList}>
-                    {Array.from(Array(5).keys()).map((_, index) => (
-                      <MatchCard key={index.toString()} />
-                    ))}
-                  </div>
-                )
+                title: 'Próximos jogos', component: <MatchesTab matches={matches} />
               },
               {
                 title: 'Histórico', component: (
                   <div className={style.list}>
-                    {Array.from(Array(5).keys()).map((_, index) => (
-                      // <MatchCard />
-                      <HistoryCard key={index.toString()} />
+                    {historyMatches.map((match, index) => (
+                      <HistoryCard
+                        match={match}
+                        key={index.toString()}
+                      />
                     ))}
                   </div>
                 )
@@ -205,8 +232,29 @@ const TeamIndex: NextPage = ({ team, invite }: InferGetServerSidePropsType<typeo
             </div>
           )}
         </main>
+        <CreateMatchModal closeModal={() => setShowNewMatchModal(false)} isOpened={showNewMatchModal} />
       </CurrentTeamContextProvider>
-      <CreateMatchModal closeModal={() => setShowNewMatchModal(false)} isOpened={showNewMatchModal} />
+    </div>
+  );
+}
+
+type MatchesTabProps = {
+  matches: Array<Match>
+}
+const MatchesTab = ({ matches }: MatchesTabProps) => {
+
+  const filteredMatches = matches.filter(
+    m => m.confirmed.length == 0 || m.confirmed.some(
+      confirmed => !confirmed || confirmed.status != "REJECTED")
+  );
+
+  return (
+    <div className={style.matchesList}>
+      {filteredMatches.map(match => (
+        <MatchCard
+          key={match.uid}
+          match={match} />
+      ))}
     </div>
   );
 }

@@ -102,8 +102,9 @@ export type Match = {
   uid?: string;
   duration: number;
   place: Place;
-  owner: string;
-  confirmed?: Array<User>;
+  owner: Team;
+  invitedTeam?: Team;
+  confirmed: Array<{ user: User, status: "ACCEPTED" | "REJECTED" }>;
   date: Date;
   name: string;
   imgUrl: string;
@@ -144,4 +145,11 @@ export type Place = {
   };
   name: string;
   place_id?: string;
+}
+
+export type Goal = {
+  uid?: string
+  user: User,
+  team: { uid: string; name: string },
+  match: { uid: string }
 }
