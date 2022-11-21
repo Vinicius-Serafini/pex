@@ -160,7 +160,9 @@ const TeamIndex: NextPage = ({ team, invite }: InferGetServerSidePropsType<typeo
     }
   }, [user]);
 
-
+  if (!team || matches.length == 0) {
+    return null;
+  }
 
   return (
     <div>

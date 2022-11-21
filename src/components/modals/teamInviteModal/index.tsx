@@ -5,12 +5,14 @@ import toast from "react-hot-toast";
 import { SearchableSelect } from "src/components/searchableSelect";
 import { useMatch } from "src/hooks/useMatch";
 import { updateMatchInvite } from "src/services/inviteService";
-import { Invite, Team } from "src/types";
+import { Invite, Team, User } from "src/types";
 import BaseModal from "../base";
 import * as Yup from "yup";
 import { ActionMeta } from "react-select";
 import useTeams from "src/hooks/useTeams";
 import styles from "./styles.module.css";
+import { acceptMatch, rejectMatch, setInivitedTeam } from "src/services/matchService";
+import { useAuth } from "src/hooks/useAuth";
 
 type teamInviteModalProps = {
   is_opened: boolean,
@@ -22,7 +24,6 @@ export function TeamInviteModal({ is_opened, close, invite }: teamInviteModalPro
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
   const teams = useTeams();
 
-  const [formSubmitType, setFormSubmitType] = useState<"ACCEPT" | "REJECT">()
 
   const onSelectTeamChange = (newValue: unknown, actionMeta: ActionMeta<unknown>, props: FormikProps<any>) => {
     props.setFieldValue('team', newValue as Team);
@@ -40,20 +41,13 @@ export function TeamInviteModal({ is_opened, close, invite }: teamInviteModalPro
       return;
     }
 
-    if (formSubmitType == "ACCEPT") {
-      handleAcceptMatchInvite(selectedTeam);
-    }
-
-    if (formSubmitType == "REJECT") {
-      handleRejectMatchInvite(selectedTeam);
-    }
+    handleAcceptMatch();
 
     close();
   }
 
 
-  const handleRejectMatchInvite = async (team: Team) => {
-    await updateMatchInvite(match, invite, "REJECTED", team);
+  const handleRejectMatch = async () => {
 
     toast('Convite recusado!',
       {
@@ -69,8 +63,12 @@ export function TeamInviteModal({ is_opened, close, invite }: teamInviteModalPro
     router.push("/");
   }
 
-  const handleAcceptMatchInvite = async (team: Team) => {
-    await updateMatchInvite(match, invite, "ACCEPTED", team);
+  const handleAcceptMatch = async () => {
+    if (!selectedTeam) {
+      return;
+    }
+
+    await setInivitedTeam(match, selectedTeam);
 
     toast('Convite aceito!',
       {
@@ -83,7 +81,7 @@ export function TeamInviteModal({ is_opened, close, invite }: teamInviteModalPro
       }
     );
 
-    close();
+    router.reload();
   }
 
   const FormSchema = Yup.object().shape({
@@ -137,18 +135,13 @@ export function TeamInviteModal({ is_opened, close, invite }: teamInviteModalPro
                   type="button"
                   className={styles.rejectBtn}
                   onClick={e => {
-                    setFormSubmitType("REJECT");
-                    props.handleSubmit();
+                    handleRejectMatch()
                   }}>
                   Recusar
                 </button>
                 <button
-                  type="button"
-                  className={styles.acceptBtn}
-                  onClick={e => {
-                    setFormSubmitType("ACCEPT");
-                    props.handleSubmit();
-                  }}>
+                  type="submit"
+                  className={styles.acceptBtn}>
                   Aceitar
                 </button>
               </div>

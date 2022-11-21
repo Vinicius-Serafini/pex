@@ -160,7 +160,7 @@ const LineupTab = () => {
         {match.invitedTeam ? (
           <button
             onClick={() => setSelectedTeam(match.invitedTeam as Team)}
-            className={selectedTeam.uid == owner.uid ? style.active : ''}>
+            className={selectedTeam.uid == match.invitedTeam.uid ? style.active : ''}>
             {match.invitedTeam.name}
           </button>
         ) : (
@@ -194,22 +194,23 @@ const ResultTab = () => {
 
     return body;
 
-  }, {});
+    // @ts-ignore: Unreachable code error
+  }, { [owner.uid]: [], [match.invitedTeam.uid]: [], });
 
   const teams = (goals && owner && match) ? [
     {
       name: owner.name,
       // @ts-ignore: Unreachable code error
-      goals: goalResults[owner.uid].length,
+      goals: goalResults[owner.uid]?.length,
       // @ts-ignore: Unreachable code error 
-      winner: goalResults[owner.uid].length > goalResults[match.invitedTeam.uid].length
+      winner: goalResults[owner.uid]?.length > goalResults[match.invitedTeam.uid]?.length
     },
     {
       name: match.invitedTeam?.name,
       // @ts-ignore: Unreachable code error
-      goals: goalResults[match.invitedTeam.uid].length,
+      goals: goalResults[match.invitedTeam.uid]?.length,
       // @ts-ignore: Unreachable code error
-      winner: goalResults[owner.uid].length < goalResults[match.invitedTeam.uid].length
+      winner: goalResults[owner.uid]?.length < goalResults[match.invitedTeam.uid]?.length
     }
   ] : [];
 
@@ -413,7 +414,6 @@ const MatchPage: NextPage = ({ match, invite }: InferGetServerSidePropsType<type
         },
       }
     );
-
   }
 
   const handleRejectMatch = async (e: React.MouseEvent<HTMLElement>) => {
@@ -490,13 +490,13 @@ const MatchPage: NextPage = ({ match, invite }: InferGetServerSidePropsType<type
               </div>
             )}
           </div>
+          <TeamInviteModal
+            is_opened={isInviteModalOpen}
+            close={() => setIsInviteModalOpen(false)}
+            invite={invite}
+          />
         </MatchContextProvider>
       )}
-      <TeamInviteModal
-        is_opened={isInviteModalOpen}
-        close={() => setIsInviteModalOpen(false)}
-        invite={invite}
-      />
     </>
   );
 }

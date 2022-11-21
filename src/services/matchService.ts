@@ -70,7 +70,7 @@ const _getMatchFromDocumentData = async (match: DocumentData, id: string): Promi
     }) : []
   );
 
-  return {
+  const _match = {
     uid: id,
     name: match.name,
     date: match.date.toDate(),
@@ -78,8 +78,15 @@ const _getMatchFromDocumentData = async (match: DocumentData, id: string): Promi
     owner: await getTeam(match.owner.id) as Team,
     place: match.place,
     imgUrl: match.imgUrl,
-    confirmed: confirmedPlayers
+    confirmed: confirmedPlayers,
   }
+
+  if (match.invitedTeam) {
+    // @ts-ignore: Unreachable code error
+    _match.invitedTeam = await getTeam(match.invitedTeam.id)
+  }
+
+  return _match;
 }
 
 
