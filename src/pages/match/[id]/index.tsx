@@ -94,7 +94,8 @@ const InfoTab = () => {
         <a
           className={style.locationCardBody}
           href={placeOnGoogleMaps(match.place)}
-          target="_blank">
+          target="_blank"
+          rel="noreferrer">
           <span className={style.locationWrapper}>
             <FontAwesomeIcon
               icon={faMapMarkedAlt}
