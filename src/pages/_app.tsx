@@ -5,14 +5,14 @@ import { Header } from 'src/components/header';
 import { useRouter } from 'next/router';
 import { Toaster } from 'react-hot-toast';
 
-const PAGES_WHO_NOT_SHOW_HEADER = ["/login"]
+const PAGES_THAT_NOT_SHOW_HEADER = ["/login"]
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   return (
     <AuthContextProvider>
-      {PAGES_WHO_NOT_SHOW_HEADER.some(
+      {PAGES_THAT_NOT_SHOW_HEADER.some(
         (url) => !router.pathname.includes(url)
       ) ? <Header /> : null}
       <Component {...pageProps} />
