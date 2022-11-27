@@ -219,7 +219,9 @@ const ResultTab = () => {
     <div className={style.resultTab}>
       <Card className={style.winnerCard}>
         {teams.map((team, index) => (
-          <div className={[style.team, (team.winner ? style.winner : '')].join(" ")}>
+          <div
+            key={index}
+            className={[style.team, (team.winner ? style.winner : '')].join(" ")}>
             {/* <FontAwesomeIcon icon={faTrophy} className={style.winnerIcon} /> */}
             <h2 className={style.teamName}>{team.winner && <span>🏆</span>} {team.name}</h2>
             <h2>{team.goals}</h2>
