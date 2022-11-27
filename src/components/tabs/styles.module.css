@@ -4,6 +4,8 @@
   gap-5 
   px-2
   pb-5
+  w-full
+  overflow-x-auto
 }
 
 .header > button {

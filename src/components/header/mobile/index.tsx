@@ -33,7 +33,7 @@ export const HeaderMobile = ({ handleLogOut, currentRoute }: HeaderMobileType) =
       <div className={style.btn}>
         <FontAwesomeIcon icon={faPowerOff} />
         <button onClick={() => handleLogOut()}>
-          <span>Perfil</span>
+          <span>Sair</span>
         </button>
       </div>
     </nav>

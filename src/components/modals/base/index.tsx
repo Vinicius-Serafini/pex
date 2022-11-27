@@ -19,7 +19,7 @@ const BaseModal = ({ isOpened, header, body, isClosable, closeModal, withBackdro
     <>
       {isOpened ? (
         <div className={withBackdrop ? [styles.backdrop, styles['backdrop-bg']].join(' ') : styles.backdrop}>
-          <Card>
+          <Card className={styles.body}>
             <div className={styles.header}>
               <div>
                 {header}

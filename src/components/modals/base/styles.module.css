@@ -1,3 +1,9 @@
+.body {
+  @apply
+  min-w-[80%]
+  md:w-[40%]
+}
+
 .backdrop {
   @apply
   fixed
