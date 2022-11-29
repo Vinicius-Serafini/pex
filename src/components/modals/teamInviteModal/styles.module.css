@@ -1,6 +1,5 @@
 .body {
   @apply
-  w-[340px]
   sm:w-[400px]
   max-w-full
   my-8

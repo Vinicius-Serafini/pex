@@ -1,7 +1,7 @@
 .body {
   @apply
-  min-w-[80%]
-  md:w-[40%]
+  sm:w-fit
+  w-full
 }
 
 .backdrop {

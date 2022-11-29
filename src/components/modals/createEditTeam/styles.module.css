@@ -1,6 +1,6 @@
 .modalBody {
   @apply
-  min-w-[350px]
+  sm:w-[350px]
   pt-5
 }
 

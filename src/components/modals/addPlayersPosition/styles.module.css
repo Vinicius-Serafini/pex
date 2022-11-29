@@ -1,6 +1,7 @@
 .modalBody {
   @apply
-  min-w-[30vw]
+  md:min-w-[30vw]
+  sm:min-w-[60vw]
 }
 
 .playerItem {
