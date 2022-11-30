@@ -51,6 +51,7 @@ const TeamIndex: NextPage = ({ team, invite }: InferGetServerSidePropsType<typeo
   const [showNewMatchModal, setShowNewMatchModal] = useState<boolean>(false);
   const [matches, setMatches] = useState<Array<Match>>([]);
   const [historyMatches, setHistoryMatches] = useState<Array<Match>>([]);
+  const [mounted, setMounted] = useState<boolean>(false);
 
   useEffect(() => {
     if (user
@@ -148,19 +149,25 @@ const TeamIndex: NextPage = ({ team, invite }: InferGetServerSidePropsType<typeo
     setHistoryMatches(_matches);
   }
 
-  useEffect(() => {
+  async function loadDependencies() {
     if (user && team) {
       if (matches.length == 0) {
-        getMatches();
+        await getMatches();
       }
 
       if (historyMatches.length == 0) {
-        getHistoryMatches();
+        await getHistoryMatches();
       }
+
+      setMounted(true);
     }
+  }
+
+  useEffect(() => {
+    loadDependencies();
   }, [user, team]);
 
-  if (!team) {
+  if (!team || !mounted) {
     return null;
   }
 
