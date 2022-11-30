@@ -61,7 +61,7 @@ export const getTeam = async (uid: string): Promise<Team | null> => {
     name: team.name,
     owner: team.owner.id,
     players: await getTeamPlayers(team.players),
-    lineup: await getTeamRawLineup(team.uid)
+    lineup: await getTeamRawLineup(teamSnap.id)
   };
 }
 

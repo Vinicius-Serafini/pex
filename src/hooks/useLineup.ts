@@ -17,8 +17,9 @@ export default function useLineup(team: Team): LineupObject {
 
   useEffect(() => {
     const rawLineup = convertLineupToRawLineup(_lineup);
+    const hasPlayers = _lineup.flat().some(p => p?.first && !isObjectEmpty(p.first));
 
-    if (team.uid) {
+    if (team.uid && hasPlayers) {
       saveRawLineup(team.uid, rawLineup);
     }
   }, [_lineup])
