@@ -1,5 +1,6 @@
 import Link from "next/link";
-import React, { MouseEventHandler } from "react";
+import Router from "next/router";
+import React, { MouseEventHandler, useState } from "react";
 import toast from "react-hot-toast";
 import { useAuth } from "src/hooks/useAuth";
 import { acceptMatch, rejectMatch } from "src/services/matchService";
@@ -13,14 +14,16 @@ type MatchCardProps = {
 
 const MatchCard = ({ match }: MatchCardProps) => {
 
+  const [_match, setMatch] = useState<Match>(match);
+
   const { user } = useAuth();
 
   const isMatchAccepted = () => {
-    if (!match.confirmed) {
+    if (!_match.confirmed) {
       return null;
     }
 
-    const u = match.confirmed.find(c => c.user.uid == user?.uid);
+    const u = _match.confirmed.find(c => c.user.uid == user?.uid);
 
     if (u?.status == "ACCEPTED") {
       return true;
@@ -38,7 +41,9 @@ const MatchCard = ({ match }: MatchCardProps) => {
   const handleAcceptMatch = async (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
 
-    match = await acceptMatch(match, user as User) as Match;
+    match = await acceptMatch(_match, user as User) as Match;
+
+    setMatch(match);
 
     toast('Convite aceito!',
       {
@@ -50,13 +55,13 @@ const MatchCard = ({ match }: MatchCardProps) => {
         },
       }
     );
-
   }
 
   const handleRejectMatch = async (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
 
     match = await rejectMatch(match, user as User) as Match;
+    setMatch(match);
 
     toast('Convite recusado!',
       {
@@ -71,23 +76,23 @@ const MatchCard = ({ match }: MatchCardProps) => {
   }
 
   return (
-    <Link href={`/match/${match.uid}`}>
+    <Link href={`/match/${_match.uid}`}>
       <div
         className={style.matchCardContainer}
-        style={{ backgroundImage: `url('${match.imgUrl}')` }}>
+        style={{ backgroundImage: `url('${_match.imgUrl}')` }}>
         <div className={style.colorOverlay} />
         <div className={style.body}>
           <div className={style.header}>
-            <h2 className={style.title}>{match.name}</h2>
+            <h2 className={style.title}>{_match.name}</h2>
             <div className={style.details}>
-              <p>{match.place.name}</p>
-              <p>{formatMatchDate(match.date)}</p>
+              <p>{_match.place.name}</p>
+              <p>{formatMatchDate(_match.date)}</p>
             </div>
           </div>
           <div className={style.teams}>
-            <h2>{typeof match.owner != 'string' ? match.owner.name : ''}</h2>
+            <h2>{typeof _match.owner != 'string' ? _match.owner.name : ''}</h2>
             <p>X</p>
-            <h2>{match.invitedTeam ? match.invitedTeam.name : 'A definir'}</h2>
+            <h2>{_match.invitedTeam ? _match.invitedTeam.name : 'A definir'}</h2>
           </div>
           <div className={style.actions}>
             {isMatchAccepted() == null ? (

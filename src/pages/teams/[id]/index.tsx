@@ -149,7 +149,7 @@ const TeamIndex: NextPage = ({ team, invite }: InferGetServerSidePropsType<typeo
   }
 
   useEffect(() => {
-    if (user) {
+    if (user && team) {
       if (matches.length == 0) {
         getMatches();
       }
@@ -158,7 +158,7 @@ const TeamIndex: NextPage = ({ team, invite }: InferGetServerSidePropsType<typeo
         getHistoryMatches();
       }
     }
-  }, [user]);
+  }, [user, team]);
 
   if (!team) {
     return null;

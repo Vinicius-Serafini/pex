@@ -41,13 +41,17 @@ const Home: NextPage = () => {
     setUserGoals(_goals);
   }
 
+  async function onMounted() {
+    await getMatches();
+    await getHistoryMatches();
+    await getUserGoals();
+
+    setMounted(true);
+  }
+
   useEffect(() => {
     if (user !== null) {
-      getMatches();
-      getHistoryMatches();
-      getUserGoals();
-
-      setMounted(true);
+      onMounted();
     }
   }, [user]);
 
@@ -58,6 +62,10 @@ const Home: NextPage = () => {
     { title: 'Total de gols', value: userGoals.length },
     { title: 'Média de gols:', value: (userGoals.length / totalMatches).toFixed(2) },
   ];
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div>
@@ -93,10 +101,10 @@ const Home: NextPage = () => {
         <div className={styles.matchesList}>
           <Tabs tabs={[
             {
-              title: 'Próximos jogos', component: <MatchesTab matches={mounted ? matches : []} />
+              title: 'Próximos jogos', component: <MatchesTab matches={matches} />
             },
             {
-              title: 'Histórico', component: <HistoryTab matches={mounted ? historyMatches : []} />
+              title: 'Histórico', component: <HistoryTab matches={historyMatches} />
             },
           ]} />
         </div>

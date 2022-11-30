@@ -417,6 +417,8 @@ const MatchPage: NextPage = ({ match, invite }: InferGetServerSidePropsType<type
         },
       }
     );
+
+    setIsInviteOpen(false);
   }
 
   const handleRejectMatch = async (e: React.MouseEvent<HTMLElement>) => {
