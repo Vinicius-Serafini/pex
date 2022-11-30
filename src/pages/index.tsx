@@ -57,11 +57,7 @@ const Home: NextPage = () => {
     { title: 'Total de jogos', value: totalMatches },
     { title: 'Total de gols', value: userGoals.length },
     { title: 'Média de gols:', value: (userGoals.length / totalMatches).toFixed(2) },
-  ]
-
-  if (matches.length == 0) {
-    return null;
-  }
+  ];
 
   return (
     <div>
