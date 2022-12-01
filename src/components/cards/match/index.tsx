@@ -114,6 +114,11 @@ const MatchCard = ({ match }: MatchCardProps) => {
                   Aceito!
                 </span>
               )}
+              {isMatchAccepted() == false && (
+                <span className={style.rejectBtn}>
+                  Rejeitado
+                </span>
+              )}
             </>)}
           </div>
         </div >
